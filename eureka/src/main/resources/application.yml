@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: eurka-server
+  profiles:
+    active: @spring.profiles.active@
+
+

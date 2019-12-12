@@ -5,9 +5,10 @@ import com.github.pagehelper.PageHelper;
 import com.paladin.framework.common.BaseModel;
 import com.paladin.framework.common.OffsetPage;
 import com.paladin.framework.common.PageResult;
-import com.paladin.framework.core.exception.BusinessException;
-import com.paladin.framework.core.exception.SystemException;
 import com.paladin.framework.core.UserSession;
+import com.paladin.framework.exception.BusinessException;
+import com.paladin.framework.exception.SystemException;
+import com.paladin.framework.exception.SystemExceptionCode;
 import com.paladin.framework.mybatis.CustomMapper;
 import com.paladin.framework.utils.ParseUtil;
 import com.paladin.framework.utils.reflect.ReflectUtil;
@@ -35,7 +36,7 @@ import java.util.*;
  */
 @Slf4j
 public abstract class ServiceSupport<Model> {
-    
+
     protected Class<Model> modelType; // 业务对应类
 
     @SuppressWarnings("unchecked")
@@ -933,7 +934,7 @@ public abstract class ServiceSupport<Model> {
                 updateModelWrap(model);
                 return getSqlMapper().updateByExampleSelective(model, example);
             } catch (InstantiationException | IllegalAccessException e) {
-                throw new SystemException("该model无法创建默认实体，没法兼容该方法");
+                throw new SystemException(SystemExceptionCode.CODE_ERROR_CODE, "该model无法创建默认实体，没法兼容该方法");
             }
         } else {
             return getSqlMapper().deleteByExample(example);

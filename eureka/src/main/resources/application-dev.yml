@@ -1,0 +1,14 @@
+server:
+  port: 8888
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+  server:
+    #取消自我保护机制，防止注册客户端无法注销，dev开发环境下用
+    enableSelfPreservation: false

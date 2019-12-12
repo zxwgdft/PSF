@@ -9,83 +9,81 @@ import java.util.List;
 @ConfigurationProperties(prefix = "paladin.web")
 public class WebProperties {
 
-	/**
-	 * 文件存放地址
-	 */
-	private String filePath = "file:D:/file/";
+    /**
+     * 文件存放地址
+     */
+    private String filePath = "file:D:/file/";
 
-	/**
-	 * 文件最大M数
-	 */
-	private int fileMaxSize = 10;
+    /**
+     * 文件最大M数
+     */
+    private int fileMaxSize = 10;
 
-	/**
-	 * 静态资源路径
-	 */
-	private String staticPath = "classpath:/static/";
+    /**
+     * 静态资源路径
+     */
+    private String staticPath = "classpath:/static/";
 
-	/**
-	 * 图标路径
-	 */
-	private String faviconPath = "classpath:favicon.ico";
+    /**
+     * 图标路径
+     */
+    private String faviconPath = "classpath:favicon.ico";
 
-	/**
-	 * root view
-	 */
-	private String rootView = "redirect:/" + GlobalProperties.project + "/login";
-	
-	
-	private List<UrlForwardOption> forwards = new ArrayList<>();
+    /**
+     * root view
+     */
+    private String rootView = "redirect:/" + GlobalProperties.project + "/login";
 
 
-	public String getFilePath() {
-		return filePath;
-	}
+    private List<UrlForwardOption> forwards = new ArrayList<>();
 
-	public void setFilePath(String filePath) {
-		this.filePath = filePath;
-	}
+    public String getFilePath() {
+        return filePath;
+    }
 
-	public int getFileMaxSize() {
-		return fileMaxSize;
-	}
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
 
-	public void setFileMaxSize(int fileMaxSize) {
-		this.fileMaxSize = fileMaxSize;
-	}
+    public int getFileMaxSize() {
+        return fileMaxSize;
+    }
 
-	public String getStaticPath() {
-		return staticPath;
-	}
+    public void setFileMaxSize(int fileMaxSize) {
+        this.fileMaxSize = fileMaxSize;
+    }
 
-	public void setStaticPath(String staticPath) {
-		this.staticPath = staticPath;
-	}
+    public String getStaticPath() {
+        return staticPath;
+    }
 
-	public String getFaviconPath() {
-		return faviconPath;
-	}
+    public void setStaticPath(String staticPath) {
+        this.staticPath = staticPath;
+    }
 
-	public void setFaviconPath(String faviconPath) {
-		this.faviconPath = faviconPath;
-	}
+    public String getFaviconPath() {
+        return faviconPath;
+    }
 
-	public String getRootView() {
-		return rootView;
-	}
+    public void setFaviconPath(String faviconPath) {
+        this.faviconPath = faviconPath;
+    }
 
-	public void setRootView(String rootView) {
-		this.rootView = rootView;
-	}
+    public String getRootView() {
+        return rootView;
+    }
 
-	public List<UrlForwardOption> getForwards() {
-		return forwards;
-	}
+    public void setRootView(String rootView) {
+        this.rootView = rootView;
+    }
 
-	public void setForwards(List<UrlForwardOption> forwards) {
-		this.forwards = forwards;
-	}
+    public List<UrlForwardOption> getForwards() {
+        return forwards;
+    }
 
+    public void setForwards(List<UrlForwardOption> forwards) {
+        this.forwards = forwards;
+    }
 
 
 }

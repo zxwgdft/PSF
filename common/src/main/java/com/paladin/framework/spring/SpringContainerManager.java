@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 
@@ -12,6 +13,7 @@ import java.util.*;
  * @author TontoZhou
  */
 @Slf4j
+@Component
 public class SpringContainerManager implements ApplicationListener<ContextRefreshedEvent> {
 
     private boolean initialized = false;

@@ -1,0 +1,15 @@
+spring:
+  profiles:
+    active: @spring.profiles.active@
+  application:
+    name: service-supervise
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+mapper:
+  mappers: com.paladin.framework.mybatis.CustomMapper
+
+feign:
+  sentinel:
+    enabled: true  #启动熔断器

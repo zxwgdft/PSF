@@ -1,22 +1,16 @@
 package com.paladin.framework.web;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.ErrorPage;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -25,12 +19,11 @@ import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 
+@Slf4j
 @Configuration
 @ConditionalOnProperty(prefix = "paladin", value = "web-enabled", havingValue = "true", matchIfMissing = true)
 @EnableConfigurationProperties(WebProperties.class)
 public class MyWebMvcConfigurer implements WebMvcConfigurer {
-
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Resource
     private WebProperties webProperties;
@@ -46,13 +39,12 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
         registry.addResourceHandler("/file/**").addResourceLocations(filePath);
         registry.addResourceHandler("/favicon.ico").addResourceLocations(faviconPath);
 
-        logger.info("文件资源存放地址：" + filePath);
-        logger.info("静态资源存放地址：" + staticPath);
-        logger.info("favicon存放地址：" + faviconPath);
+        log.info("文件资源存放地址：" + filePath);
+        log.info("静态资源存放地址：" + staticPath);
+        log.info("favicon存放地址：" + faviconPath);
 
         registry.addResourceHandler("/swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
-
     }
 
     @Override
@@ -79,29 +71,11 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
     @Bean
     public ConfigurableServletWebServerFactory webServerFactory() {
         TomcatServletWebServerFactory factory = new TomcatServletWebServerFactory();
-        factory.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/static/html/error_404.html"));
-        factory.addErrorPages(new ErrorPage(HttpStatus.UNAUTHORIZED, "/static/html/error_401.html"));
-        factory.addErrorPages(new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, "/static/html/error_500.html"));
+        factory.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/static/html/404.html"));
+        factory.addErrorPages(new ErrorPage(HttpStatus.UNAUTHORIZED, "/static/html/401.html"));
+        factory.addErrorPages(new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, "/static/html/500.html"));
         return factory;
     }
 
-    @Bean
-    @ConditionalOnProperty(name = "paladin.configuration.auto.web.cors", havingValue = "true", matchIfMissing = true)
-    public FilterRegistrationBean<CorsFilter> filterRegistrationBean() {
-        // 对响应头进行CORS授权
-        CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.addAllowedOrigin("*"); // 1允许任何域名使用
-        corsConfiguration.addAllowedHeader("*"); // 2允许任何头
-        corsConfiguration.addAllowedMethod("*"); // 3允许任何方法（post、get等）
-        corsConfiguration.setMaxAge(3600L);// 跨域过期时间 秒
-
-        // 注册CORS过滤器
-        UrlBasedCorsConfigurationSource configurationSource = new UrlBasedCorsConfigurationSource();
-        configurationSource.registerCorsConfiguration("/**", corsConfiguration);
-        CorsFilter corsFilter = new CorsFilter(configurationSource);
-        FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<>(corsFilter);
-        bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
-        return bean;
-    }
 
 }

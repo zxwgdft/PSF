@@ -12,6 +12,7 @@ import tk.mybatis.mapper.common.example.*;
 /**
  * 继承自己的MyMapper
  */
+
 public interface CustomMapper<T> extends 
 				SelectAllMapper<T>,
 				SelectByPrimaryKeyMapper<T>,

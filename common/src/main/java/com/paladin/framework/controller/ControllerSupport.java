@@ -1,7 +1,8 @@
 package com.paladin.framework.controller;
 
+import com.paladin.framework.common.HttpCode;
+import com.paladin.framework.common.R;
 import com.paladin.framework.utils.beans.copy.SimpleBeanCopier;
-import com.paladin.framework.web.CommonResponse;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.servlet.ModelAndView;
@@ -9,19 +10,6 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 public class ControllerSupport {
-
-    /**
-     * 成功
-     */
-    public final static CommonResponse SUCCESS = CommonResponse.getSuccessResponse();
-    /**
-     * 失败，业务处理失败，由业务逻辑引起
-     */
-    public final static CommonResponse FAIL = CommonResponse.getFailResponse();
-    /**
-     * 异常，通常指前端传入参数异常或系统异常，非业务逻辑引起
-     */
-    public final static CommonResponse ERROR = CommonResponse.getErrorResponse();
 
     /**
      * 验证异常处理
@@ -41,7 +29,7 @@ public class ControllerSupport {
             result[i++] = new String[]{error.getCode(), error.getField(), error.getDefaultMessage()};
         }
 
-        return CommonResponse.getValidFailResponse(result);
+        return R.fail(HttpCode.BAD_REQUEST, "请求参数验证未通过", result);
     }
 
     protected <T> T beanCopy(Object source, T target) {

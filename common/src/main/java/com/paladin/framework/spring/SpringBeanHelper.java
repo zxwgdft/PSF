@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
@@ -13,6 +14,7 @@ import java.util.Map;
  *
  * @author TontZhou
  */
+@Component
 public class SpringBeanHelper implements ApplicationContextAware {
 
     private final static Logger logger = LoggerFactory.getLogger(SpringBeanHelper.class);
@@ -33,7 +35,7 @@ public class SpringBeanHelper implements ApplicationContextAware {
         try {
             return appContext.getBean(name);
         } catch (Exception e) {
-            logger.error("获取SpringBean(Name:" + name + ")失败：" + e.getMessage());
+            logger.error("获取SpringBean(Name:" + name + ")失败", e);
             return null;
         }
     }
@@ -47,7 +49,7 @@ public class SpringBeanHelper implements ApplicationContextAware {
         try {
             return appContext.getBean(name, requiredType);
         } catch (Exception e) {
-            logger.error("获取SpringBean(Name:" + name + "/Class:" + requiredType.getName() + ")失败：" + e.getMessage());
+            logger.error("获取SpringBean(Name:" + name + "/Class:" + requiredType.getName() + ")失败", e);
             return null;
         }
     }
@@ -62,7 +64,7 @@ public class SpringBeanHelper implements ApplicationContextAware {
         try {
             return appContext.getBeansOfType(type);
         } catch (Exception e) {
-            logger.error("获取SpringBeansMap(Class:" + type.getName() + ")失败：" + e.getMessage());
+            logger.error("获取SpringBeansMap(Class:" + type.getName() + ")失败", e);
             return null;
         }
     }
@@ -80,7 +82,7 @@ public class SpringBeanHelper implements ApplicationContextAware {
         try {
             return appContext.getBeansOfType(type, includeNonSingletons, allowEagerInit);
         } catch (Exception e) {
-            logger.error("获取SpringBeansMap(Class:" + type.getName() + ")失败：" + e.getMessage());
+            logger.error("获取SpringBeansMap(Class:" + type.getName() + ")失败", e);
             return null;
         }
 
@@ -97,7 +99,7 @@ public class SpringBeanHelper implements ApplicationContextAware {
             Map<String, T> beansMap = appContext.getBeansOfType(type);
             return getMapFirstValue(beansMap);
         } catch (Exception e) {
-            logger.error("获取SpringBean(Class:" + type.getName() + ")失败：" + e.getMessage());
+            logger.error("获取SpringBean(Class:" + type.getName() + ")失败", e);
             return null;
         }
     }
@@ -115,7 +117,7 @@ public class SpringBeanHelper implements ApplicationContextAware {
             Map<String, T> beansMap = appContext.getBeansOfType(type, includeNonSingletons, allowEagerInit);
             return getMapFirstValue(beansMap);
         } catch (Exception e) {
-            logger.error("获取SpringBean(Class:" + type.getName() + ")失败：" + e.getMessage());
+            logger.error("获取SpringBean(Class:" + type.getName() + ")失败", e);
             return null;
         }
 

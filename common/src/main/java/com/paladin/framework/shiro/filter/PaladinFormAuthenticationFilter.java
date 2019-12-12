@@ -1,8 +1,9 @@
 package com.paladin.framework.shiro.filter;
 
+import com.paladin.framework.common.HttpCode;
+import com.paladin.framework.common.R;
 import com.paladin.framework.core.UserSession;
 import com.paladin.framework.utils.WebUtil;
-import com.paladin.framework.web.CommonResponse;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.subject.Subject;
@@ -17,57 +18,57 @@ import javax.servlet.http.HttpServletResponse;
 
 public class PaladinFormAuthenticationFilter extends FormAuthenticationFilter {
 
-	private static final Logger log = LoggerFactory.getLogger(PaladinFormAuthenticationFilter.class);
+    private static final Logger log = LoggerFactory.getLogger(PaladinFormAuthenticationFilter.class);
 
-	protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
-		if (isLoginRequest(request, response)) {
-			if (isLoginSubmission(request, response)) {
-				if (log.isTraceEnabled()) {
-					log.trace("Login submission detected.  Attempting to execute login.");
-				}
-				return executeLogin(request, response);
-			} else {
-				if (log.isTraceEnabled()) {
-					log.trace("Login page view.");
-				}
+    protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
+        if (isLoginRequest(request, response)) {
+            if (isLoginSubmission(request, response)) {
+                if (log.isTraceEnabled()) {
+                    log.trace("Login submission detected.  Attempting to execute login.");
+                }
+                return executeLogin(request, response);
+            } else {
+                if (log.isTraceEnabled()) {
+                    log.trace("Login page view.");
+                }
 
-				return true;
-			}
-		} else {
-			if (log.isTraceEnabled()) {
-				log.trace("Attempting to access a path which requires authentication.  Forwarding to the " + "Authentication url [" + getLoginUrl() + "]");
-			}
+                return true;
+            }
+        } else {
+            if (log.isTraceEnabled()) {
+                log.trace("Attempting to access a path which requires authentication.  Forwarding to the " + "Authentication url [" + getLoginUrl() + "]");
+            }
 
-			if (WebUtil.isAjaxRequest((HttpServletRequest) request)) {
-				WebUtil.sendJsonByCors((HttpServletResponse) response, CommonResponse.getUnLoginResponse("未登录或会话超时"));
-			} else {
-				saveRequestAndRedirectToLogin(request, response);
-			}
+            if (WebUtil.isAjaxRequest((HttpServletRequest) request)) {
+                WebUtil.sendJsonByCors((HttpServletResponse) response, R.fail(HttpCode.UNAUTHORIZED));
+            } else {
+                saveRequestAndRedirectToLogin(request, response);
+            }
 
-			return false;
-		}
-	}
+            return false;
+        }
+    }
 
-	protected boolean onLoginSuccess(AuthenticationToken token, Subject subject, ServletRequest request, ServletResponse response) throws Exception {
-		if (WebUtil.isAjaxRequest((HttpServletRequest) request)) {
-			WebUtil.sendJsonByCors((HttpServletResponse) response, CommonResponse.getSuccessResponse(UserSession.getCurrentUserSession().getUserForView()));
-			return false;
-		} else {
-			issueSuccessRedirect(request, response);
-			return false;
-		}
-	}
+    protected boolean onLoginSuccess(AuthenticationToken token, Subject subject, ServletRequest request, ServletResponse response) throws Exception {
+        if (WebUtil.isAjaxRequest((HttpServletRequest) request)) {
+            WebUtil.sendJsonByCors((HttpServletResponse) response, R.success(UserSession.getCurrentUserSession().getUserForView()));
+            return false;
+        } else {
+            issueSuccessRedirect(request, response);
+            return false;
+        }
+    }
 
-	protected boolean onLoginFailure(AuthenticationToken token, AuthenticationException e, ServletRequest request, ServletResponse response) {
-		if (WebUtil.isAjaxRequest((HttpServletRequest) request)) {
-			WebUtil.sendJsonByCors((HttpServletResponse) response, CommonResponse.getUnLoginResponse("登录失败,用户名或密码错误！"));
-			return false;
-		} else {
-			// setFailureAttribute(request, e);
-			// request.setAttribute("error", e.getMessage());
-			return true;
-		}
+    protected boolean onLoginFailure(AuthenticationToken token, AuthenticationException e, ServletRequest request, ServletResponse response) {
+        if (WebUtil.isAjaxRequest((HttpServletRequest) request)) {
+            WebUtil.sendJsonByCors((HttpServletResponse) response, R.fail(HttpCode.UNAUTHORIZED, "登录失败,用户名或密码错误！"));
+            return false;
+        } else {
+            // setFailureAttribute(request, e);
+            // request.setAttribute("error", e.getMessage());
+            return true;
+        }
 
-	}
+    }
 
 }

@@ -3,6 +3,7 @@ package com.paladin.framework.redis;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.CacheManager;
@@ -22,8 +23,9 @@ import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
  * @since 2018年3月15日
  */
 @Configuration
-@EnableConfigurationProperties(RedisProperties.class)
+@ConditionalOnProperty(prefix = "paladin", value = "redis-enabled", havingValue = "true", matchIfMissing = false)
 @Slf4j
+@EnableConfigurationProperties(RedisProperties.class)
 public class RedisConfiguration extends CachingConfigurerSupport {
 
     @Bean
