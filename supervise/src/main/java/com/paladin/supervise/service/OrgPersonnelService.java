@@ -1,6 +1,6 @@
 package com.paladin.supervise.service;
 
-import com.paladin.organization.model.OrgPersonnel;
+import com.paladin.supervise.service.dto.OrgPersonnelDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -14,5 +14,5 @@ import java.util.List;
 public interface OrgPersonnelService {
 
     @GetMapping(value = "/organization/personnel/find")
-    List<OrgPersonnel> findPersonnel();
+    List<OrgPersonnelDTO> findPersonnel();
 }

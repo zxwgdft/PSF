@@ -37,6 +37,8 @@
         <org.apache.poi.version>4.1.1</org.apache.poi.version>
         <reids.clients.version>3.1.0</reids.clients.version>
         <javax.servlet.version>4.0.1</javax.servlet.version>
+
+        <java-jwt.version>3.8.3</java-jwt.version>
         <pagehelper-spring-boot-starter.version>1.2.13</pagehelper-spring-boot-starter.version>
         <versions-maven-plugin.version>2.7</versions-maven-plugin.version>
         <swagger.version>1.5.24</swagger.version>

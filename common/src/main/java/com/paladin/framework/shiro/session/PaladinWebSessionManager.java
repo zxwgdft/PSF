@@ -16,6 +16,9 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 
+/**
+ * 自定义获取TOKEN机制，如果设置了TOKEN域，则会从HEARD中尝试获取TOKEN，否则按照原先sessionId机制
+ */
 public class PaladinWebSessionManager extends DefaultWebSessionManager {
 
 	private static Logger logger = LoggerFactory.getLogger(PaladinWebSessionManager.class);

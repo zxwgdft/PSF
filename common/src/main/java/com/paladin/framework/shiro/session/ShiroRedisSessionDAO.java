@@ -56,9 +56,7 @@ public class ShiroRedisSessionDAO implements SessionDAO {
      * @param session
      */
     private void cacheSessioin(Serializable sessionId, Session session) {
-
         redisTemplate.opsForValue().set(getRedisKey(sessionId), session, shiroProperties.getSessionTime(), TimeUnit.MINUTES);
-
         if (log.isDebugEnabled()) {
             log.debug("添加session缓存：" + session);
         }
@@ -70,9 +68,7 @@ public class ShiroRedisSessionDAO implements SessionDAO {
      * @param session
      */
     private void uncacheSession(Session session) {
-
         redisTemplate.delete(getRedisKey(session.getId()));
-
         if (log.isDebugEnabled()) {
             log.debug("移除Redis中session缓存：" + session);
         }
@@ -85,9 +81,7 @@ public class ShiroRedisSessionDAO implements SessionDAO {
      * @return
      */
     private Session getCacheSession(Serializable sessionId) {
-
         Session cached = (Session) redisTemplate.opsForValue().get(getRedisKey(sessionId));
-
         if (log.isDebugEnabled()) {
             log.debug("从Redis获取session缓存：" + cached);
         }
@@ -101,9 +95,7 @@ public class ShiroRedisSessionDAO implements SessionDAO {
      * @param sessionId
      */
     private void updateCacheExpireTime(Serializable sessionId) {
-
         redisTemplate.expire(getRedisKey(sessionId), shiroProperties.getSessionTime(), TimeUnit.MINUTES);
-
         if (log.isDebugEnabled()) {
             log.debug("更新Redis中session缓存过期时间：" + sessionId);
         }
@@ -131,9 +123,7 @@ public class ShiroRedisSessionDAO implements SessionDAO {
 
     @Override
     public void update(Session session) throws UnknownSessionException {
-
         if (session instanceof ControlledSession) {
-
             /*
              * 如果是{@link ControlledSession}，则需要判断是否只是访问时间更新，如果是，再判断是否超过更新间隔，如果是，则进行时间更新
              */

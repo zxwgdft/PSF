@@ -2,22 +2,11 @@ spring:
   profiles:
     active: @spring.profiles.active@
   application:
-    name: service-organization
+      name: service-zuul
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
-
-mapper:
-  mappers: com.paladin.framework.mybatis.CustomMapper
-
-
+    
 ribbon:
   ReadTimeout: 6000
   ConnectTimeout: 6000
-
-
-paladin:
-  redis-enabled: true
-  shiro:
-    tokenField: token
-    redisEnabled: false

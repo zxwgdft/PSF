@@ -1,11 +1,10 @@
-package com.paladin.framework.shiro;
+package com.paladin.organization.configuration;
 
-import com.paladin.framework.shiro.session.ClusterSessionFactory;
-import com.paladin.framework.shiro.session.ShiroRedisSessionDAO;
 import com.paladin.framework.shiro.filter.PaladinFormAuthenticationFilter;
 import com.paladin.framework.shiro.filter.PaladinLogoutFilter;
+import com.paladin.framework.shiro.session.ClusterSessionFactory;
 import com.paladin.framework.shiro.session.PaladinWebSessionManager;
-import com.paladin.framework.utils.LogContentUtil;
+import com.paladin.framework.shiro.session.ShiroRedisSessionDAO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.AbstractAuthenticator;
 import org.apache.shiro.authc.AuthenticationListener;
@@ -13,18 +12,13 @@ import org.apache.shiro.authc.Authenticator;
 import org.apache.shiro.authc.pam.AuthenticationStrategy;
 import org.apache.shiro.authc.pam.FirstSuccessfulStrategy;
 import org.apache.shiro.realm.Realm;
-import org.apache.shiro.session.mgt.eis.SessionDAO;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
-import org.apache.shiro.web.mgt.WebSecurityManager;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
-import org.apache.shiro.web.session.mgt.WebSessionManager;
-import org.springframework.aop.framework.autoproxy.AbstractAdvisorAutoProxyCreator;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -46,15 +40,13 @@ import java.util.Map;
  * @author TontoZhou
  * @since 2018年3月21日
  */
-@Configuration
-@ConditionalOnProperty(prefix = "paladin", value = "shiro-enabled", havingValue = "true", matchIfMissing = false)
-@EnableConfigurationProperties(ShiroProperties.class)
 @Slf4j
-public class ShiroConfiguration {
+@Configuration
+@EnableConfigurationProperties(OrganizationShiroProperties.class)
+public class OrganizationShiroConfiguration {
 
     @Bean(name = "redisSessionDAO")
-    public ShiroRedisSessionDAO redisSessionDAO(ShiroProperties shiroProperties, RedisTemplate<String, Object> jdkRedisTemplate) {
-        log.info(LogContentUtil.createComponent(SessionDAO.class, ShiroRedisSessionDAO.class));
+    public ShiroRedisSessionDAO redisSessionDAO(OrganizationShiroProperties shiroProperties, RedisTemplate<String, Object> jdkRedisTemplate) {
         ShiroRedisSessionDAO sessionDao = new ShiroRedisSessionDAO(shiroProperties, jdkRedisTemplate);
         return sessionDao;
     }
@@ -64,9 +56,9 @@ public class ShiroConfiguration {
      * @see DefaultWebSessionManager
      */
     @Bean(name = "sessionManager")
-    public DefaultWebSessionManager defaultWebSessionManager(ShiroProperties shiroProperties, ShiroRedisSessionDAO redisSessionDAO) {
-        log.info(LogContentUtil.createComponent(WebSessionManager.class, DefaultWebSessionManager.class));
+    public DefaultWebSessionManager defaultWebSessionManager(OrganizationShiroProperties shiroProperties, ShiroRedisSessionDAO redisSessionDAO) {
         DefaultWebSessionManager sessionManager = new PaladinWebSessionManager(shiroProperties);
+
         if (shiroProperties.isRedisEnabled()) {
             // 如果设置集群共享session，需要redis来存放session
             sessionManager.setSessionDAO(redisSessionDAO);
@@ -97,8 +89,6 @@ public class ShiroConfiguration {
     @Bean(name = "securityManager")
     public DefaultWebSecurityManager getDefaultWebSecurityManage(DefaultWebSessionManager defaultWebSessionManager, Realm realm,
                                                                  List<AuthenticationListener> authenticationListeners) {
-        log.info(LogContentUtil.createComponent(WebSecurityManager.class, DefaultWebSecurityManager.class));
-
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(realm);
 
@@ -115,11 +105,9 @@ public class ShiroConfiguration {
     }
 
     @Bean(name = "shiroFilter")
-    @ConditionalOnMissingBean(ShiroFilterFactoryBean.class)
-    public ShiroFilterFactoryBean shirFilter(DefaultWebSecurityManager securityManager, ShiroProperties shiroProperties) {
-        log.info(LogContentUtil.createComponent(ShiroFilterFactoryBean.class, PaladinShiroFilterFactoryBean.class));
+    public ShiroFilterFactoryBean shirFilter(DefaultWebSecurityManager securityManager, OrganizationShiroProperties shiroProperties) {
 
-        ShiroFilterFactoryBean shiroFilterFactoryBean = new PaladinShiroFilterFactoryBean(shiroProperties);
+        ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
 
         // 必须设置 SecurityManager
         shiroFilterFactoryBean.setSecurityManager(securityManager);
@@ -151,6 +139,12 @@ public class ShiroConfiguration {
         // rest (rest方面) org.apache.shiro.web.filter.authz.HttpMethodPermissionFilter
 
         filterChainDefinitionMap.put(shiroProperties.getLogoutUrl(), "logout");
+
+        Map<String, String> filterChainDefinition = shiroProperties.getFilterChainDefinition();
+        if (filterChainDefinition != null) {
+            filterChainDefinitionMap.putAll(filterChainDefinition);
+        }
+
         filterChainDefinitionMap.put("/**", "authc");
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
@@ -159,14 +153,11 @@ public class ShiroConfiguration {
 
     @Bean(name = "authenticationStrategy")
     public AuthenticationStrategy authenticationStrategy() {
-        log.info(LogContentUtil.createComponent(AuthenticationStrategy.class, FirstSuccessfulStrategy.class));
         return new FirstSuccessfulStrategy();
     }
 
     @Bean(name = "authorizationAttributeSourceAdvisor")
     public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(DefaultWebSecurityManager securityManager) {
-        log.info(LogContentUtil.createComponent(AuthorizationAttributeSourceAdvisor.class, AuthorizationAttributeSourceAdvisor.class));
-
         AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
         authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
         return authorizationAttributeSourceAdvisor;
@@ -174,8 +165,6 @@ public class ShiroConfiguration {
 
     @Bean(name = "lifecycleBeanPostProcessor")
     public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
-        log.info(LogContentUtil.createComponent(LifecycleBeanPostProcessor.class, LifecycleBeanPostProcessor.class));
-
         return new LifecycleBeanPostProcessor();
     }
 
@@ -183,8 +172,6 @@ public class ShiroConfiguration {
     @Bean
     @DependsOn("lifecycleBeanPostProcessor")
     public DefaultAdvisorAutoProxyCreator getDefaultAdvisorAutoProxyCreator() {
-        log.info(LogContentUtil.createComponent(AbstractAdvisorAutoProxyCreator.class, DefaultAdvisorAutoProxyCreator.class));
-
         DefaultAdvisorAutoProxyCreator daap = new DefaultAdvisorAutoProxyCreator();
         daap.setProxyTargetClass(true);
         return daap;

@@ -1,6 +1,5 @@
 package com.paladin.framework.web;
 
-import com.paladin.framework.core.GlobalProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.util.ArrayList;
@@ -32,7 +31,7 @@ public class WebProperties {
     /**
      * root view
      */
-    private String rootView = "redirect:/" + GlobalProperties.project + "/login";
+    private String rootView = "redirect:/login";
 
 
     private List<UrlForwardOption> forwards = new ArrayList<>();

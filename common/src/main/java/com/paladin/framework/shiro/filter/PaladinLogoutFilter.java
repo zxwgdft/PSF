@@ -2,12 +2,11 @@ package com.paladin.framework.shiro.filter;
 
 import com.paladin.framework.common.R;
 import com.paladin.framework.utils.WebUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.session.SessionException;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.LogoutFilter;
 import org.apache.shiro.web.util.WebUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -15,9 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Locale;
 
+@Slf4j
 public class PaladinLogoutFilter extends LogoutFilter {
-
-    private static final Logger log = LoggerFactory.getLogger(LogoutFilter.class);
 
     @Override
     protected boolean preHandle(ServletRequest request, ServletResponse response) throws Exception {

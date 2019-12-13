@@ -13,3 +13,7 @@ mapper:
 feign:
   sentinel:
     enabled: true  #启动熔断器
+
+ribbon:
+  ReadTimeout: 6000
+  ConnectTimeout: 6000
