@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Id;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Date;
  */
 @Getter
 @Setter
-public class SysUser {
+public class SysUser implements Serializable {
 
     public static final String COLUMN_FIELD_ACCOUNT = "account";
 

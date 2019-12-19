@@ -20,4 +20,4 @@ paladin:
   redis-enabled: true
   shiro:
     tokenField: token
-    redisEnabled: false
+    redisEnabled: true

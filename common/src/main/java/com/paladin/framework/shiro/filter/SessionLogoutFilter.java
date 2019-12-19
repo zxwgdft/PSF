@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Locale;
 
 @Slf4j
-public class PaladinLogoutFilter extends LogoutFilter {
+public class SessionLogoutFilter extends LogoutFilter {
 
     @Override
     protected boolean preHandle(ServletRequest request, ServletResponse response) throws Exception {

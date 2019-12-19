@@ -1,5 +1,6 @@
 package com.paladin.organization.model;
 
+import com.paladin.framework.common.BaseModel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,7 +13,7 @@ import java.util.Date;
  */
 @Getter
 @Setter
-public class OrgPersonnel {
+public class OrgPersonnel extends BaseModel {
 
     @Id
     private String id;

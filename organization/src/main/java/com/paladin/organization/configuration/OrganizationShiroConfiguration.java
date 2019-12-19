@@ -1,9 +1,9 @@
 package com.paladin.organization.configuration;
 
-import com.paladin.framework.shiro.filter.PaladinFormAuthenticationFilter;
-import com.paladin.framework.shiro.filter.PaladinLogoutFilter;
+import com.paladin.framework.shiro.filter.SessionAuthenticationFilter;
+import com.paladin.framework.shiro.filter.SessionLogoutFilter;
 import com.paladin.framework.shiro.session.ClusterSessionFactory;
-import com.paladin.framework.shiro.session.PaladinWebSessionManager;
+import com.paladin.framework.shiro.session.SessionWebSessionManager;
 import com.paladin.framework.shiro.session.ShiroRedisSessionDAO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.AbstractAuthenticator;
@@ -57,7 +57,7 @@ public class OrganizationShiroConfiguration {
      */
     @Bean(name = "sessionManager")
     public DefaultWebSessionManager defaultWebSessionManager(OrganizationShiroProperties shiroProperties, ShiroRedisSessionDAO redisSessionDAO) {
-        DefaultWebSessionManager sessionManager = new PaladinWebSessionManager(shiroProperties);
+        DefaultWebSessionManager sessionManager = new SessionWebSessionManager(shiroProperties);
 
         if (shiroProperties.isRedisEnabled()) {
             // 如果设置集群共享session，需要redis来存放session
@@ -121,9 +121,9 @@ public class OrganizationShiroConfiguration {
         // 增加自定义过滤
         Map<String, Filter> filters = new HashMap<>();
 
-        PaladinFormAuthenticationFilter authenticationFilter = new PaladinFormAuthenticationFilter();
+        SessionAuthenticationFilter authenticationFilter = new SessionAuthenticationFilter();
         filters.put("authc", authenticationFilter);
-        filters.put("logout", new PaladinLogoutFilter());
+        filters.put("logout", new SessionLogoutFilter());
 
         shiroFilterFactoryBean.setFilters(filters);
         // 拦截器.

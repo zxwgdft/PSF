@@ -1,4 +1,4 @@
-package com.paladin.organization.auth;
+package com.paladin.organization.core;
 
 import com.paladin.organization.model.SysUser;
 import com.paladin.organization.service.SysUserService;
@@ -45,6 +45,9 @@ public class UserRealm extends AuthorizingRealm {
         if (sysUser == null) {
             throw new UnknownAccountException();
         }
+
+
+
 
         // 创建用户session，存储相关信息（角色，权限等）
 

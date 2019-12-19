@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Writer;
 import java.util.List;
@@ -20,6 +21,10 @@ public class JsonUtil {
         return objectMapper.readValue(json, valueType);
     }
 
+    public static <T> T parseJson(InputStream input, Class<T> valueType) throws IOException {
+        return objectMapper.readValue(input, valueType);
+    }
+
     public static String getJson(Object value) throws IOException {
         return objectMapper.writeValueAsString(value);
     }
@@ -32,4 +37,6 @@ public class JsonUtil {
         return objectMapper.readValue(json, new TypeReference<List<T>>() {
         });
     }
+
+
 }

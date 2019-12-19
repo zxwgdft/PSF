@@ -19,14 +19,14 @@ import java.io.Serializable;
 /**
  * 自定义获取TOKEN机制，如果设置了TOKEN域，则会从HEARD中尝试获取TOKEN，否则按照原先sessionId机制
  */
-public class PaladinWebSessionManager extends DefaultWebSessionManager {
+public class SessionWebSessionManager extends DefaultWebSessionManager {
 
-	private static Logger logger = LoggerFactory.getLogger(PaladinWebSessionManager.class);
+	private static Logger logger = LoggerFactory.getLogger(SessionWebSessionManager.class);
 
 	private String tokenField;	
 	private boolean isCluster = false;
 
-	public PaladinWebSessionManager(ShiroProperties shiroProperties) {
+	public SessionWebSessionManager(ShiroProperties shiroProperties) {
 		super();
 		isCluster = shiroProperties.isRedisEnabled();
 		tokenField = shiroProperties.getTokenField();
