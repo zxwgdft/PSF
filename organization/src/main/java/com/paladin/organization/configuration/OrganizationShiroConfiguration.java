@@ -1,9 +1,9 @@
 package com.paladin.organization.configuration;
 
-import com.paladin.framework.shiro.filter.SessionAuthenticationFilter;
-import com.paladin.framework.shiro.filter.SessionLogoutFilter;
-import com.paladin.framework.shiro.session.ClusterSessionFactory;
-import com.paladin.framework.shiro.session.SessionWebSessionManager;
+import com.paladin.framework.shiro.filter.CommonAuthenticationFilter;
+import com.paladin.framework.shiro.filter.CommonLogoutFilter;
+import com.paladin.framework.shiro.session.CommonSessionFactory;
+import com.paladin.framework.shiro.session.CommonWebSessionManager;
 import com.paladin.framework.shiro.session.ShiroRedisSessionDAO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.AbstractAuthenticator;
@@ -57,14 +57,14 @@ public class OrganizationShiroConfiguration {
      */
     @Bean(name = "sessionManager")
     public DefaultWebSessionManager defaultWebSessionManager(OrganizationShiroProperties shiroProperties, ShiroRedisSessionDAO redisSessionDAO) {
-        DefaultWebSessionManager sessionManager = new SessionWebSessionManager(shiroProperties);
+        DefaultWebSessionManager sessionManager = new CommonWebSessionManager(shiroProperties);
 
         if (shiroProperties.isRedisEnabled()) {
             // 如果设置集群共享session，需要redis来存放session
             sessionManager.setSessionDAO(redisSessionDAO);
             // 用户权限，认证等缓存设置，因为验证权限部分用其他方式实现，所以不需要缓存
             // sessionManager.setCacheManager(new RedisCacheManager());
-            sessionManager.setSessionFactory(new ClusterSessionFactory());
+            sessionManager.setSessionFactory(new CommonSessionFactory());
         }
 
         // session 监听
@@ -121,9 +121,9 @@ public class OrganizationShiroConfiguration {
         // 增加自定义过滤
         Map<String, Filter> filters = new HashMap<>();
 
-        SessionAuthenticationFilter authenticationFilter = new SessionAuthenticationFilter();
+        CommonAuthenticationFilter authenticationFilter = new CommonAuthenticationFilter();
         filters.put("authc", authenticationFilter);
-        filters.put("logout", new SessionLogoutFilter());
+        filters.put("logout", new CommonLogoutFilter());
 
         shiroFilterFactoryBean.setFilters(filters);
         // 拦截器.

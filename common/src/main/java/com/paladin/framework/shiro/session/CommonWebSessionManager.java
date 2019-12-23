@@ -19,14 +19,14 @@ import java.io.Serializable;
 /**
  * 自定义获取TOKEN机制，如果设置了TOKEN域，则会从HEARD中尝试获取TOKEN，否则按照原先sessionId机制
  */
-public class SessionWebSessionManager extends DefaultWebSessionManager {
+public class CommonWebSessionManager extends DefaultWebSessionManager {
 
-	private static Logger logger = LoggerFactory.getLogger(SessionWebSessionManager.class);
+	private static Logger logger = LoggerFactory.getLogger(CommonWebSessionManager.class);
 
 	private String tokenField;	
 	private boolean isCluster = false;
 
-	public SessionWebSessionManager(ShiroProperties shiroProperties) {
+	public CommonWebSessionManager(ShiroProperties shiroProperties) {
 		super();
 		isCluster = shiroProperties.isRedisEnabled();
 		tokenField = shiroProperties.getTokenField();

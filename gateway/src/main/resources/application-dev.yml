@@ -1,0 +1,18 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8888/eureka/
+
+server:
+  port: 8900
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - predicates:
+            - Path=/organization/**
+          uri: lb://service-organization
+        - predicates:
+            - Path=/supervise/**
+          uri: lb://service-supervise

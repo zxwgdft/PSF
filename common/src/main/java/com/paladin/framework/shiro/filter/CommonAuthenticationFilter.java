@@ -20,7 +20,7 @@ import java.util.Map;
  * 增强版本，增加ajax请求返回和json格式请求获取登录信息
  */
 @Slf4j
-public class SessionAuthenticationFilter extends FormAuthenticationFilter {
+public class CommonAuthenticationFilter extends FormAuthenticationFilter {
 
     public static final String ERROR_KEY_LOGIN_FAIL_MESSAGE = "loginFailMessage";
 

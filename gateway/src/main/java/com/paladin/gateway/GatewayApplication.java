@@ -1,23 +1,22 @@
-package com.paladin.zuul;
+package com.paladin.gateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
-import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 
 /**
  * @author TontoZhou
- * @since 2019/11/1
+ * @since 2019/12/23
  */
+
 @SpringBootApplication
-@EnableZuulProxy
 @EnableEurekaClient
 @EnableDiscoveryClient
-public class ZuulApplication {
+public class GatewayApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run( ZuulApplication.class, args );
+        SpringApplication.run( GatewayApplication.class, args );
     }
 
 }
