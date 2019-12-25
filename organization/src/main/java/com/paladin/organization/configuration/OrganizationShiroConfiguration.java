@@ -11,7 +11,6 @@ import org.apache.shiro.authc.AuthenticationListener;
 import org.apache.shiro.authc.Authenticator;
 import org.apache.shiro.authc.pam.AuthenticationStrategy;
 import org.apache.shiro.authc.pam.FirstSuccessfulStrategy;
-import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -19,6 +18,7 @@ import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,6 +33,7 @@ import java.util.Map;
 
 /**
  * <h2>shiro配置</h2>
+ * <p>如果不走网关登录、鉴权可启用shiro，走自身的验证流程</p>
  * <p>
  * 修改了部分shiro的代码，从而提高效率，减少session的重复读取
  * </p>
@@ -42,6 +43,7 @@ import java.util.Map;
  */
 @Slf4j
 @Configuration
+@ConditionalOnProperty(prefix = "paladin", value = "shiro-enabled", havingValue = "true", matchIfMissing = false)
 @EnableConfigurationProperties(OrganizationShiroProperties.class)
 public class OrganizationShiroConfiguration {
 
@@ -49,6 +51,11 @@ public class OrganizationShiroConfiguration {
     public ShiroRedisSessionDAO redisSessionDAO(OrganizationShiroProperties shiroProperties, RedisTemplate<String, Object> jdkRedisTemplate) {
         ShiroRedisSessionDAO sessionDao = new ShiroRedisSessionDAO(shiroProperties, jdkRedisTemplate);
         return sessionDao;
+    }
+
+    @Bean(name = "organizationUserRealm")
+    public OrganizationUserRealm organizationUserRealm() {
+        return new OrganizationUserRealm();
     }
 
     /**
@@ -87,10 +94,10 @@ public class OrganizationShiroConfiguration {
     }
 
     @Bean(name = "securityManager")
-    public DefaultWebSecurityManager getDefaultWebSecurityManage(DefaultWebSessionManager defaultWebSessionManager, Realm realm,
+    public DefaultWebSecurityManager getDefaultWebSecurityManage(DefaultWebSessionManager defaultWebSessionManager, OrganizationUserRealm organizationUserRealm,
                                                                  List<AuthenticationListener> authenticationListeners) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        securityManager.setRealm(realm);
+        securityManager.setRealm(organizationUserRealm);
 
         // 这是shiro提供的验证成功失败接口，如果在filter中处理登录成功失败不一定能覆盖所有情况
         Authenticator authenticator = securityManager.getAuthenticator();

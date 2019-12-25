@@ -3,9 +3,6 @@ package com.paladin.framework.service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.paladin.framework.common.BaseModel;
-import com.paladin.framework.common.OffsetPage;
-import com.paladin.framework.common.PageResult;
-import com.paladin.framework.core.UserSession;
 import com.paladin.framework.exception.BusinessException;
 import com.paladin.framework.exception.SystemException;
 import com.paladin.framework.exception.SystemExceptionCode;
@@ -20,7 +17,10 @@ import tk.mybatis.mapper.mapperhelper.EntityHelper;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 
 /**
  * <h2>业务支持类</h2>
@@ -946,34 +946,15 @@ public abstract class ServiceSupport<Model> {
      *
      * @param model
      */
-    public void updateModelWrap(Model model) {
-        if (model instanceof BaseModel) {
-            Date now = new Date();
-            UserSession userSession = UserSession.getCurrentUserSession();
-            String uid = userSession == null ? "" : userSession.getUserId();
-            BaseModel baseModel = (BaseModel) model;
-            baseModel.setUpdateTime(now);
-            baseModel.setUpdateBy(uid);
-        }
-    }
+    public abstract void updateModelWrap(Model model);
 
     /**
      * 保存操作前需要对数据包裹，例如设置创建操作人与操作时间
      *
      * @param model
      */
-    public void saveModelWrap(Model model) {
-        if (model instanceof BaseModel) {
-            Date now = new Date();
-            UserSession userSession = UserSession.getCurrentUserSession();
-            String uid = userSession == null ? "" : userSession.getUserId();
-            BaseModel baseModel = (BaseModel) model;
-            baseModel.setCreateTime(now);
-            baseModel.setCreateBy(uid);
-            baseModel.setUpdateTime(now);
-            baseModel.setUpdateBy(uid);
-        }
-    }
+    public abstract void saveModelWrap(Model model);
+
 
     // -----------------------------------------------------
     //

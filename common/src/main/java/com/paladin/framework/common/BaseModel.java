@@ -2,13 +2,15 @@ package com.paladin.framework.common;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Date;
 
-@Data
-@NoArgsConstructor
+@Getter
+@Setter
 public abstract class BaseModel implements Serializable {
 
     public static final String COLUMN_FIELD_DELETED = "deleted";

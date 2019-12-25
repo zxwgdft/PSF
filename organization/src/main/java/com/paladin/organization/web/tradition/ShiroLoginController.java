@@ -1,4 +1,4 @@
-package com.paladin.organization.web;
+package com.paladin.organization.web.tradition;
 
 import com.paladin.framework.common.R;
 import com.paladin.organization.service.SysUserService;
@@ -9,14 +9,16 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Api("用户认证模块")
 @Controller
+@ConditionalOnProperty(prefix = "paladin", value = "shiro-enabled", havingValue = "true", matchIfMissing = false)
 @RequestMapping("/organization")
-public class LoginController {
+public class ShiroLoginController {
 
     @Autowired
     private SysUserService sysUserService;

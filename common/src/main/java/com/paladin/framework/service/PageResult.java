@@ -1,4 +1,4 @@
-package com.paladin.framework.common;
+package com.paladin.framework.service;
 
 import java.util.List;
 

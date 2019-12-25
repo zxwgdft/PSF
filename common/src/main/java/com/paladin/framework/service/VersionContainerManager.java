@@ -1,4 +1,4 @@
-package com.paladin.framework.core;
+package com.paladin.framework.service;
 
 import com.paladin.framework.spring.SpringBeanHelper;
 import com.paladin.framework.spring.SpringContainer;

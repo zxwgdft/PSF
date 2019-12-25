@@ -1,4 +1,4 @@
-package com.paladin.organization.web;
+package com.paladin.organization.web.rest;
 
 import com.paladin.organization.model.OrgPersonnel;
 import com.paladin.organization.service.OrgPersonnelService;

@@ -1,4 +1,4 @@
-package com.paladin.framework.core;
+package com.paladin.shiro;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;

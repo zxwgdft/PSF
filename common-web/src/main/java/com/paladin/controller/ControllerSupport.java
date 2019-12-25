@@ -1,11 +1,10 @@
-package com.paladin.framework.controller;
+package com.paladin.controller;
 
 import com.paladin.framework.common.HttpCode;
 import com.paladin.framework.common.R;
 import com.paladin.framework.utils.beans.copy.SimpleBeanCopier;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -45,7 +44,4 @@ public class ControllerSupport {
         return SimpleBeanCopier.SimpleBeanCopyUtil.simpleCopyList(sourceList, targeList);
     }
 
-    public ModelAndView returnErrorView(String errorMessage) {
-        return new ModelAndView("/common/error/error", "errorMessage", errorMessage);
-    }
 }

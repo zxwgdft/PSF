@@ -13,6 +13,10 @@ spring:
         - predicates:
             - Path=/organization/**
           uri: lb://service-organization
+          filters:
+            - Auth
         - predicates:
             - Path=/supervise/**
           uri: lb://service-supervise
+          filters:
+            - Auth

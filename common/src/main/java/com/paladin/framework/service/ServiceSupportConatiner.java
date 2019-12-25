@@ -13,7 +13,7 @@ import java.util.Map.Entry;
 
 /**
  * 
- * 业务支持类容器，启动时为{@link com.paladin.service.ServiceSupport}自动注入SqlMapper
+ * 业务支持类容器，启动时为{@link ServiceSupport}自动注入SqlMapper
  * 
  * @author TontoZhou
  *

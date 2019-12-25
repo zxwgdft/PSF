@@ -1,4 +1,4 @@
-package com.paladin.organization.core;
+package com.paladin.organization.configuration;
 
 import com.paladin.organization.model.SysUser;
 import com.paladin.organization.service.SysUserService;
@@ -9,16 +9,14 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-@Component
-public class UserRealm extends AuthorizingRealm {
+public class OrganizationUserRealm extends AuthorizingRealm {
 
     @Autowired
     private SysUserService sysUserService;
 
 
-    public UserRealm() {
+    public OrganizationUserRealm() {
         HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
         hashedCredentialsMatcher.setHashAlgorithmName("md5");// 散列算法:这里使用MD5算法;
         hashedCredentialsMatcher.setHashIterations(1);// 散列的次数，当于 m比如散列两次，相d5("");

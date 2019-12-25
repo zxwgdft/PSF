@@ -1,4 +1,4 @@
-package com.paladin.framework.core;
+package com.paladin.framework.service;
 
 import java.util.Date;
 
