@@ -24,8 +24,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class R<T> implements Serializable {
 
-    private static final long serialVersionUID = -1160662278280275915L;
-
     @ApiModelProperty(value = "CODE", required = true)
     private int code;
     @ApiModelProperty(value = "是否成功", required = true)

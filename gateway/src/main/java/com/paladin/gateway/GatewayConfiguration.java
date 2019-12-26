@@ -1,4 +1,4 @@
-package com.paladin.organization.configuration;
+package com.paladin.gateway;
 
 import com.paladin.framework.jwt.SHATokenProvider;
 import com.paladin.framework.jwt.TokenProvider;
@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Slf4j
 @Configuration
-public class OrganizationConfiguration {
+public class GatewayConfiguration {
 
     @Bean
     public TokenProvider getTokenProvider() {

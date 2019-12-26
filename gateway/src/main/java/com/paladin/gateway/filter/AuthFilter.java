@@ -1,11 +1,15 @@
 package com.paladin.gateway.filter;
 
+import com.paladin.framework.common.HttpCode;
 import com.paladin.framework.common.R;
-import com.paladin.gateway.service.AuthService;
+import com.paladin.framework.jwt.TokenProvider;
+import com.paladin.gateway.util.WebFluxUtil;
+import io.jsonwebtoken.Claims;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.core.Ordered;
-import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
@@ -15,9 +19,9 @@ import reactor.core.publisher.Mono;
  */
 public class AuthFilter implements GatewayFilter, Ordered {
 
-    private AuthService authService;
-
     private AuthGatewayFilterFactory.Config config;
+
+    private TokenProvider tokenProvider;
 
     public AuthFilter(AuthGatewayFilterFactory.Config config) {
         this.config = config;
@@ -26,20 +30,28 @@ public class AuthFilter implements GatewayFilter, Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
 
-        HttpHeaders headers = exchange.getRequest().getHeaders();
+        ServerHttpRequest request = exchange.getRequest();
+        String token = request.getHeaders().getFirst(config.getTokenField());
 
-        R result = authService.authenticate("admin", "admin123");
-        System.out.println(result);
+        if (token != null && token.length() > 0) {
+            try {
+                Claims claims= tokenProvider.parseJWT(token);
+                return chain.filter(exchange);
+            } catch (Exception e) {
 
-        return chain.filter(exchange);
+            }
+        }
+
+        return WebFluxUtil.writeResponseByJson(exchange, HttpStatus.UNAUTHORIZED, R.fail(HttpCode.UNAUTHORIZED, "未授权访问"));
     }
+
 
     @Override
     public int getOrder() {
         return 0;
     }
 
-    public void setAuthService(AuthService authService) {
-        this.authService = authService;
+    public void setTokenProvider(TokenProvider tokenProvider) {
+        this.tokenProvider = tokenProvider;
     }
 }

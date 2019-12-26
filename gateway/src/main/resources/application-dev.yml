@@ -11,6 +11,9 @@ spring:
     gateway:
       routes:
         - predicates:
+          - Path=/organization/authenticate
+          uri: lb://service-organization
+        - predicates:
             - Path=/organization/**
           uri: lb://service-organization
           filters:
@@ -20,3 +23,8 @@ spring:
           uri: lb://service-supervise
           filters:
             - Auth
+
+jwt:
+  key:
+    SHA:
+      key: iljOQvU3MdAu99fJEGQn0yi5VUNttMMD0EKcwtqbE4EDpBqYWSgsgs5T9V9fVgBDh3VDpCaYEJdewLG4f8wxEcLcNF7sSIWYSjjF01ObeFjxTo4frSfy2aliJABV2

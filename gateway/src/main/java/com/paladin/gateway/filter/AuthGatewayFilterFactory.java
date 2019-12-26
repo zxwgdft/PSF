@@ -1,9 +1,10 @@
 package com.paladin.gateway.filter;
 
-import com.paladin.gateway.service.AuthService;
+import com.paladin.framework.jwt.TokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 
 /**
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Component;
 public class AuthGatewayFilterFactory extends AbstractGatewayFilterFactory<AuthGatewayFilterFactory.Config> {
 
     @Autowired
-    private AuthService authService;
+    private TokenProvider tokenProvider;
 
     public AuthGatewayFilterFactory() {
         super(Config.class);
@@ -23,12 +24,21 @@ public class AuthGatewayFilterFactory extends AbstractGatewayFilterFactory<AuthG
     @Override
     public GatewayFilter apply(Config config) {
         AuthFilter filter = new AuthFilter(config);
-        filter.setAuthService(authService);
+        filter.setTokenProvider(tokenProvider);
         return filter;
     }
 
     public static class Config {
 
+        private String tokenField = HttpHeaders.AUTHORIZATION;
+
+        public String getTokenField() {
+            return tokenField;
+        }
+
+        public void setTokenField(String tokenField) {
+            this.tokenField = tokenField;
+        }
     }
 
 }

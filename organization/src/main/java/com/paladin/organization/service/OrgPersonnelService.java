@@ -1,7 +1,7 @@
 package com.paladin.organization.service;
 
+import com.paladin.framework.service.WebServiceSupport;
 import com.paladin.organization.model.OrgPersonnel;
-import com.paladin.service.WebServiceSupport;
 import org.springframework.stereotype.Service;
 
 /**

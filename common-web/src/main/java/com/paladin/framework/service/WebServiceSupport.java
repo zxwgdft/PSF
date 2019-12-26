@@ -1,8 +1,7 @@
-package com.paladin.service;
+package com.paladin.framework.service;
 
 import com.paladin.framework.common.BaseModel;
-import com.paladin.framework.service.ServiceSupport;
-import com.paladin.shiro.UserSession;
+import com.paladin.framework.shiro.UserSession;
 
 import java.util.Date;
 
