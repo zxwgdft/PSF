@@ -18,11 +18,9 @@ public class OrgPersonnel extends BaseModel {
     @Id
     private String id;
 
-    private String orgUnitId;
+    private String unitId;
 
-    private String orgAgencyId;
-
-    private String orgAssessTeamId;
+    private String agencyId;
 
     private String name;
 
@@ -34,7 +32,7 @@ public class OrgPersonnel extends BaseModel {
 
     private Integer sex;
 
-    private Integer oeducation;
+    private Integer education;
 
     private Integer nation;
 

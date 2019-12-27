@@ -18,10 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/organization")
 public class OrgAuthController {
 
-
     @Autowired
     private SysUserService sysUserService;
-
 
     @PostMapping("/authenticate")
     public ResponseEntity authenticateByAccount(@RequestBody LoginUser loginUser) {

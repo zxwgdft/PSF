@@ -11,15 +11,13 @@ import java.util.Date;
  */
 @Getter
 @Setter
-public class OrgPersonnelDTO {
+public class OrgPersonnel {
 
     private String id;
 
-    private String orgUnitId;
+    private String unitId;
 
-    private String orgAgencyId;
-
-    private String orgAssessTeamId;
+    private String agencyId;
 
     private String name;
 
@@ -31,7 +29,7 @@ public class OrgPersonnelDTO {
 
     private Integer sex;
 
-    private Integer oeducation;
+    private Integer education;
 
     private Integer nation;
 
@@ -52,14 +50,6 @@ public class OrgPersonnelDTO {
     private String reward;
 
     private String punish;
-
-    private Integer isAdmin;
-
-    private Integer isAssessor;
-
-    private String assessRole;
-
-    private String assessUnitId;
 
     private Integer jobLevel;
 
