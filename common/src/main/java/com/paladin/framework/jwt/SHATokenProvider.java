@@ -1,12 +1,10 @@
 package com.paladin.framework.jwt;
 
-import com.paladin.framework.utils.StringUtil;
 import com.paladin.framework.utils.random.RandomUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.apache.commons.codec.binary.Base64;
-import org.springframework.beans.factory.annotation.Value;
 
 import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
@@ -15,38 +13,27 @@ import java.util.Map;
 
 public class SHATokenProvider implements TokenProvider {
 
-    @Value("${jwt.key.SHA.key:}")
-    private String base64Key;
-    @Value("${jwt.token-validity-in-milliseconds:1800000}")
-    private long tokenValidityInMilliseconds;
-    @Value("${jwt.issuer:}")
+    private long tokenExpireMilliseconds;
     private String issuer;
 
     private byte[] keyBytes;
 
-    public SHATokenProvider(String base64Key, long tokenValidityInSeconds) {
-        this.keyBytes = Base64.decodeBase64(base64Key);
-        this.tokenValidityInMilliseconds = tokenValidityInSeconds * 1000;
-    }
-
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        if (StringUtil.isNotEmpty(base64Key)) {
-            this.keyBytes = Base64.decodeBase64(base64Key);
-        }
-    }
-
-    public SHATokenProvider() {
+    public static SHATokenProvider randomInstance() {
+        SHATokenProvider tokenProvider = new SHATokenProvider();
+        // 随机生成
         String str = RandomUtil.getRandomString(125);
         Key key = new SecretKeySpec(str.getBytes(),
                 SignatureAlgorithm.HS512.getJcaName());
-        this.keyBytes = key.getEncoded();
+
+        tokenProvider.keyBytes = key.getEncoded();
+        tokenProvider.tokenExpireMilliseconds = 30 * 60 * 1000;
+        return tokenProvider;
     }
 
 
     public String createJWT(String subject, Map<String, Object> claims) {
         Date now = new Date();
-        Date validity = new Date(now.getTime() + this.tokenValidityInMilliseconds);
+        Date validity = new Date(now.getTime() + this.tokenExpireMilliseconds);
 
         return Jwts.builder()
                 .setSubject(subject)
@@ -68,4 +55,15 @@ public class SHATokenProvider implements TokenProvider {
     }
 
 
+    public void setBase64Key(String base64Key) {
+        this.keyBytes = Base64.decodeBase64(base64Key);
+    }
+
+    public void setIssuer(String issuer) {
+        this.issuer = issuer;
+    }
+
+    public void setTokenExpireMilliseconds(long tokenExpireMilliseconds) {
+        this.tokenExpireMilliseconds = tokenExpireMilliseconds;
+    }
 }

@@ -15,7 +15,6 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
 @EnableEurekaClient
-@EnableFeignClients(basePackages = "com.paladin.gateway.service")
 @EnableDiscoveryClient
 public class GatewayApplication {
 

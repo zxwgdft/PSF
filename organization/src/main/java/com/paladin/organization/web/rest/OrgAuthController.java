@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/organization")
 public class OrgAuthController {
 
+
     @Autowired
     private SysUserService sysUserService;
 

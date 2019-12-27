@@ -11,4 +11,9 @@ public class SystemExceptionCode {
      */
     public final static int CODE_ERROR_CODE = 10000;
 
+    /**
+     * 配置异常，请检查配置参数
+     */
+    public final static int CODE_ERROR_CONFIG = 20000;
+
 }

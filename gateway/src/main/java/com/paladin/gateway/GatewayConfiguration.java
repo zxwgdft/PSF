@@ -1,9 +1,6 @@
 package com.paladin.gateway;
 
-import com.paladin.framework.jwt.SHATokenProvider;
-import com.paladin.framework.jwt.TokenProvider;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -14,9 +11,5 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class GatewayConfiguration {
 
-    @Bean
-    public TokenProvider getTokenProvider() {
-        return new SHATokenProvider();
-    }
 
 }

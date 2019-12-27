@@ -1,12 +1,12 @@
 package com.paladin.framework.jwt;
 
-import com.paladin.framework.utils.StringUtil;
+import com.paladin.framework.exception.SystemException;
+import com.paladin.framework.exception.SystemExceptionCode;
 import com.paladin.framework.utils.secure.RSAEncryptUtil;
 import com.paladin.framework.utils.secure.RSAKey;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
@@ -15,37 +15,29 @@ import java.util.Map;
 
 public class RSATokenProvider implements TokenProvider {
 
-
     private RSAPrivateKey privateKey;
     private RSAPublicKey publicKey;
 
-    @Value("${jwt.key.RSA.public-key:}")
-    private String base64PublicKey;
-    @Value("${jwt.key.RSA.private-key:}")
-    private String base64PrivateKey;
-    @Value("${jwt.token-validity-in-milliseconds:1800000}")
-    private long tokenValidityInMilliseconds;
-    @Value("${jwt.issuer:}")
+    private long tokenExpireMilliseconds;
     private String issuer;
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        if (StringUtil.isNotEmpty(base64PublicKey) && StringUtil.isNotEmpty(base64PrivateKey)) {
-            this.publicKey = RSAEncryptUtil.getRSAPublicKey(base64PublicKey);
-            this.privateKey = RSAEncryptUtil.getRSAPrivateKey(base64PrivateKey);
+    public static RSATokenProvider randomInstance() {
+        RSATokenProvider tokenProvider = new RSATokenProvider();
+        RSAKey key = null;
+        try {
+            key = RSAEncryptUtil.getRSAKey("jwt", 1024);
+        } catch (Exception e) {
+            // 不会报错
         }
+        tokenProvider.publicKey = key.getPublicKey();
+        tokenProvider.privateKey = key.getPrivateKey();
+        tokenProvider.tokenExpireMilliseconds = 30 * 60 * 1000;
+        return tokenProvider;
     }
-
-    public RSATokenProvider() throws Exception {
-        RSAKey key = RSAEncryptUtil.getRSAKey("jwt", 1024);
-        this.publicKey = key.getPublicKey();
-        this.privateKey = key.getPrivateKey();
-    }
-
 
     public String createJWT(String subject, Map<String, Object> claims) {
         Date now = new Date();
-        Date validity = new Date(now.getTime() + this.tokenValidityInMilliseconds);
+        Date validity = new Date(now.getTime() + this.tokenExpireMilliseconds);
 
         return Jwts.builder()
                 .setSubject(subject)
@@ -66,4 +58,27 @@ public class RSATokenProvider implements TokenProvider {
     }
 
 
+    public void setPublicKey(String base64PublicKey) {
+        try {
+            this.publicKey = RSAEncryptUtil.getRSAPublicKey(base64PublicKey);
+        } catch (Exception e) {
+            throw new SystemException(SystemExceptionCode.CODE_ERROR_CONFIG, "设置Base64公钥错误", e);
+        }
+    }
+
+    public void setPrivateKey(String base64PrivateKey) {
+        try {
+            this.privateKey = RSAEncryptUtil.getRSAPrivateKey(base64PrivateKey);
+        } catch (Exception e) {
+            throw new SystemException(SystemExceptionCode.CODE_ERROR_CONFIG, "设置Base64私钥错误", e);
+        }
+    }
+
+    public void setTokenExpireMilliseconds(long tokenExpireMilliseconds) {
+        this.tokenExpireMilliseconds = tokenExpireMilliseconds;
+    }
+
+    public void setIssuer(String issuer) {
+        this.issuer = issuer;
+    }
 }
