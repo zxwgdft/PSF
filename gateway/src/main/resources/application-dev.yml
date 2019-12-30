@@ -9,10 +9,18 @@ server:
 spring:
   cloud:
     gateway:
+      locator:
+        enabled: true
       routes:
         - predicates:
             - Path=/organization/authenticate
           uri: lb://service-organization
+        - id: organization-api
+          predicates:
+            - Path=/organization/v2/api-docs
+          uri: lb://service-organization
+          filters:
+            - StripPrefix=1
         - predicates:
             - Path=/organization/**
           uri: lb://service-organization

@@ -42,7 +42,8 @@
         <jjwt.version>0.9.1</jjwt.version>
         <pagehelper-spring-boot-starter.version>1.2.13</pagehelper-spring-boot-starter.version>
         <versions-maven-plugin.version>2.7</versions-maven-plugin.version>
-        <swagger.version>1.5.24</swagger.version>
+        <swagger.version>2.9.2</swagger.version>
+        <swagger-ui.version>1.9.6</swagger-ui.version>
         <spring.version>5.2.2.RELEASE</spring.version>
         <spring-cloud.version>Hoxton.SR1</spring-cloud.version>
         <spring-cloud-starter-alibaba-sentinel.version>0.9.0.RELEASE</spring-cloud-starter-alibaba-sentinel.version>

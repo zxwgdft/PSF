@@ -4,7 +4,6 @@ package com.paladin.framework.common;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -21,7 +20,6 @@ import java.io.Serializable;
 @Setter
 @ToString
 @ApiModel(description = "返回信息")
-@NoArgsConstructor
 public class R<T> implements Serializable {
 
     @ApiModelProperty(value = "CODE", required = true)
@@ -30,7 +28,7 @@ public class R<T> implements Serializable {
     private boolean success;
     @ApiModelProperty(value = "消息", required = true)
     private String message;
-    @ApiModelProperty("返回对象数据")
+    @ApiModelProperty("具体业务数据")
     private T data;
 
     private R(IResultCode resultCode) {
