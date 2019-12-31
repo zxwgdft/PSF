@@ -21,7 +21,7 @@ public enum HttpCode implements IResultCode {
 
     FAILURE(500, "操作失败"),
 
-    NOT_FOUND(404, "404，未找到请求"),
+    NOT_FOUND(404, "404，未找到请求资源"),
 
     UNAUTHORIZED(401, "请求身份未验证"),
 

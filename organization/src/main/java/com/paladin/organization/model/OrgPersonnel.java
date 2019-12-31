@@ -1,6 +1,7 @@
 package com.paladin.organization.model;
 
 import com.paladin.framework.common.BaseModel;
+import io.swagger.annotations.ApiModel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,6 +12,7 @@ import java.util.Date;
  * @author TontoZhou
  * @since 2019/12/11
  */
+@ApiModel("人员信息")
 @Getter
 @Setter
 public class OrgPersonnel extends BaseModel {

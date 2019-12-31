@@ -1,7 +1,9 @@
 package com.paladin.framework.service;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+@ApiModel("分页请求")
 public class OffsetPage extends QuerySort {
 
     public final static int DEFAULT_LIMIT = 15;
