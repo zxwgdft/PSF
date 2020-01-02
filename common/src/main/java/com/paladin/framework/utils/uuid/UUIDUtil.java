@@ -1,6 +1,7 @@
 package com.paladin.framework.utils.uuid;
 
 import java.security.SecureRandom;
+import java.util.UUID;
 
 public class UUIDUtil {
 
@@ -33,4 +34,5 @@ public class UUIDUtil {
 		long hi = 1L << (digits * 4);
 		return Long.toHexString(hi | (val & (hi - 1))).substring(1);
 	}
+
 }

@@ -2,7 +2,9 @@ package com.paladin.organization.configuration;
 
 import com.paladin.framework.jwt.SHATokenProvider;
 import com.paladin.framework.jwt.TokenProvider;
+import com.paladin.framework.service.UserSessionThreadManager;
 import com.paladin.framework.utils.StringUtil;
+import com.paladin.organization.auth.OrgUserSessionFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -29,7 +31,14 @@ public class OrganizationConfiguration {
         return tokenProvider;
     }
 
+    @Bean
+    public OrgUserSessionFactory getOrgUserSessionFactory() {
+        return new OrgUserSessionFactory();
+    }
 
-
+    @Bean
+    public UserSessionThreadManager getUserSessionThreadManager() {
+        return new UserSessionThreadManager();
+    }
 
 }

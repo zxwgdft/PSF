@@ -25,7 +25,6 @@ public class OrgPersonnelController {
     @Autowired
     private OrgPersonnelService orgPersonnelService;
 
-
     @ApiKeyAuthDefinition(in = ApiKeyAuthDefinition.ApiKeyLocation.HEADER, name = "TOKEN", key = "auth")
     @ApiOperation(value = "获取某个人员信息")
     @GetMapping("/get")
@@ -35,7 +34,6 @@ public class OrgPersonnelController {
 
 
     @ApiOperation(value = "获取人员信息列表-分页")
-    //@ApiOperation(value = "获取人员信息列表-分页", response = OrgPersonnel.class, responseContainer = "List")
     @GetMapping("/find")
     public PageResult<OrgPersonnel> findPersonnel(OffsetPage param) {
         return orgPersonnelService.searchPage(param);

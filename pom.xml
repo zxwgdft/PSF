@@ -13,7 +13,6 @@
         <module>common</module>
         <module>eureka</module>
         <module>organization</module>
-        <module>generator</module>
         <module>supervise</module>
         <module>gateway</module>
         <module>common-web</module>

@@ -1,7 +1,6 @@
 package com.paladin.framework.service;
 
 import com.paladin.framework.common.BaseModel;
-import com.paladin.framework.shiro.UserSession;
 
 import java.util.Date;
 
@@ -19,7 +18,7 @@ public class WebServiceSupport<Model> extends ServiceSupport<Model> {
     public void updateModelWrap(Model model) {
         if (isBaseModel) {
             Date now = new Date();
-            UserSession userSession = UserSession.getCurrentUserSession();
+            UserSession userSession = UserSessionThreadManager.getCurrentUserSession();
             String uid = userSession == null ? "" : userSession.getUserId();
             BaseModel baseModel = (BaseModel) model;
             baseModel.setUpdateTime(now);
@@ -35,7 +34,7 @@ public class WebServiceSupport<Model> extends ServiceSupport<Model> {
     public void saveModelWrap(Model model) {
         if (isBaseModel) {
             Date now = new Date();
-            UserSession userSession = UserSession.getCurrentUserSession();
+            UserSession userSession = UserSessionThreadManager.getCurrentUserSession();
             String uid = userSession == null ? "" : userSession.getUserId();
             BaseModel baseModel = (BaseModel) model;
             baseModel.setCreateTime(now);
