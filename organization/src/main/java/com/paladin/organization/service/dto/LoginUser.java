@@ -1,5 +1,7 @@
 package com.paladin.organization.service.dto;
 
+import com.paladin.organization.model.constant.Sex;
+import com.paladin.organization.model.constant.UserState;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -22,5 +24,10 @@ public class LoginUser {
 
     @ApiModelProperty("是否记住")
     private boolean isRememberMe;
+
+
+    private Sex sex;
+
+    private UserState state;
 
 }

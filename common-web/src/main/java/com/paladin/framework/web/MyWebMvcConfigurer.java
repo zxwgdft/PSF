@@ -1,5 +1,8 @@
 package com.paladin.framework.web;
 
+import com.paladin.framework.web.convert.DateFormatter;
+import com.paladin.framework.web.convert.Integer2EnumConverterFactory;
+import com.paladin.framework.web.convert.String2EnumConverterFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -64,8 +67,11 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
         }
     }
 
+    @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addFormatterForFieldType(Date.class, new DateFormatter());
+        registry.addConverterFactory(new Integer2EnumConverterFactory());
+        registry.addConverterFactory(new String2EnumConverterFactory());
     }
 
     @Bean

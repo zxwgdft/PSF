@@ -1,4 +1,4 @@
-package com.paladin.framework.web;
+package com.paladin.framework.web.convert;
 
 import org.springframework.format.Formatter;
 

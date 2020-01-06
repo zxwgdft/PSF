@@ -35,7 +35,7 @@ public class SysUserService extends WebServiceSupport<SysUser> {
             SysUser sysUser = getUserByAccount(username);
             if (sysUser != null) {
                 if (SecureUtil.hashByMD5(password, sysUser.getSalt(), 1).equals(sysUser.getPassword())) {
-                    String jwtToken = tokenProvider.createJWT(sysUser.getUserId());
+                    String jwtToken = tokenProvider.createJWT(sysUser.getId());
                     return R.success(jwtToken);
                 } else {
                     return R.fail("密码错误");

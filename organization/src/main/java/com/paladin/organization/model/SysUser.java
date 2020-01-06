@@ -1,10 +1,12 @@
 package com.paladin.organization.model;
 
+import com.paladin.framework.common.BaseModel;
+import com.paladin.organization.model.constant.Bool;
+import com.paladin.organization.model.constant.UserState;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Id;
-import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -13,19 +15,20 @@ import java.util.Date;
  */
 @Getter
 @Setter
-public class SysUser implements Serializable {
+public class SysUser extends BaseModel {
 
     public static final String COLUMN_FIELD_ACCOUNT = "account";
 
     @Id
     private String id;
+    private Integer type;
     private String account;
     private String password;
     private String salt;
-    private String userId;
-    private Integer state;
-    private Integer type;
+    private UserState state;
+    private String cellphone;
+    private String lastLoginIp;
     private Date lastLoginTime;
-    private Integer isFirstLogin = 1;
+    private Bool isFirstLogin;
 
 }

@@ -1,6 +1,8 @@
 package com.paladin.organization.model;
 
 import com.paladin.framework.common.BaseModel;
+import com.paladin.organization.model.constant.IdentificationType;
+import com.paladin.organization.model.constant.Sex;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -23,7 +25,7 @@ public class OrgPersonnel extends BaseModel {
     private String id;
 
     @ApiModelProperty(value = "身份证件种类")
-    private Integer identificationType;
+    private IdentificationType identificationType;
 
     @ApiModelProperty(value = "身份证件号码")
     private String identificationNo;
@@ -35,7 +37,7 @@ public class OrgPersonnel extends BaseModel {
     private String usedName;
 
     @ApiModelProperty(value = "性别")
-    private Integer sex;
+    private Sex sex;
 
     @ApiModelProperty(value = "手机号码")
     private String cellphone;
