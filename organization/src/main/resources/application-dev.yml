@@ -13,7 +13,7 @@ spring:
       port: 27017
       database: organization
   datasource:
-    name: common
+    name: organization
     url: jdbc:mysql://172.16.16.120:3306/organization?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
     username: netin
     password: 123456

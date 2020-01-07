@@ -17,3 +17,7 @@ feign:
 ribbon:
   ReadTimeout: 6000
   ConnectTimeout: 6000
+
+
+paladin:
+  redis-enabled: true

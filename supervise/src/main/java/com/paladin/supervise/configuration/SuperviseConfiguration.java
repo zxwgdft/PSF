@@ -2,8 +2,11 @@ package com.paladin.supervise.configuration;
 
 import com.paladin.framework.jwt.SHATokenProvider;
 import com.paladin.framework.jwt.TokenProvider;
+import com.paladin.framework.service.UserSessionThreadManager;
 import com.paladin.framework.utils.StringUtil;
+import com.paladin.supervise.auth.SuperviseUserSessionFactory;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -14,6 +17,7 @@ import org.springframework.core.env.Environment;
  */
 @Slf4j
 @Configuration
+@EnableConfigurationProperties(SuperviseProperties.class)
 public class SuperviseConfiguration {
 
     @Bean
@@ -25,6 +29,16 @@ public class SuperviseConfiguration {
         tokenProvider.setTokenExpireMilliseconds(expireMillisecond);
         tokenProvider.setIssuer(env.getProperty("jwt.issuer"));
         return tokenProvider;
+    }
+
+    @Bean
+    public SuperviseUserSessionFactory getOrgUserSessionFactory() {
+        return new SuperviseUserSessionFactory();
+    }
+
+    @Bean
+    public UserSessionThreadManager getUserSessionThreadManager() {
+        return new UserSessionThreadManager();
     }
 
 }

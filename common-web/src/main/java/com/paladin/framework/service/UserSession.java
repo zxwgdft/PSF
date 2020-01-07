@@ -38,4 +38,8 @@ public abstract class UserSession implements Serializable {
         return userId != null ? userId.hashCode() : 0;
     }
 
+
+
+
+
 }

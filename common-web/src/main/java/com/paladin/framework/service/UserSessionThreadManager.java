@@ -19,7 +19,7 @@ public class UserSessionThreadManager implements HandlerInterceptor {
     @Autowired
     private UserSessionFactory userSessionFactory;
 
-    private final static ThreadLocal<UserSession> sessionMap = new ThreadLocal<>();
+    protected final static ThreadLocal<UserSession> sessionMap = new ThreadLocal<>();
 
     /// 可以使用缓存控制UserSession,但需要有线程维护
 

@@ -5,7 +5,6 @@ import com.paladin.framework.service.PageResult;
 import com.paladin.organization.model.OrgPersonnel;
 import com.paladin.organization.service.OrgPersonnelService;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiKeyAuthDefinition;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +24,6 @@ public class OrgPersonnelController {
     @Autowired
     private OrgPersonnelService orgPersonnelService;
 
-    @ApiKeyAuthDefinition(in = ApiKeyAuthDefinition.ApiKeyLocation.HEADER, name = "TOKEN", key = "auth")
     @ApiOperation(value = "获取某个人员信息")
     @GetMapping("/get")
     public OrgPersonnel getPersonnel(@RequestParam() String userId) {

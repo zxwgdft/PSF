@@ -1,12 +1,15 @@
 package com.paladin.organization.web.rest;
 
 import com.paladin.framework.common.R;
-import com.paladin.organization.model.constant.Sex;
 import com.paladin.organization.service.SysUserService;
 import com.paladin.organization.service.dto.LoginUser;
-import io.swagger.annotations.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author TontoZhou
@@ -22,7 +25,7 @@ public class OrgAuthController {
 
     @ApiOperation(value = "账号认证")
     @PostMapping("/authenticate")
-    public R<String> authenticateByAccount(@RequestBody LoginUser loginUser, @RequestParam("sex") Sex sex) {
+    public R<String> authenticateByAccount(@RequestBody LoginUser loginUser) {
         R<String> result = sysUserService.authenticate(loginUser);
         return result;
     }

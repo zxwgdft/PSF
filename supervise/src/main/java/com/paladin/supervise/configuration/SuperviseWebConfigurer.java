@@ -1,35 +1,33 @@
-package com.paladin.framework.web;
+package com.paladin.supervise.configuration;
 
+import com.paladin.framework.service.UserSessionThreadManager;
 import com.paladin.framework.web.convert.DateFormatter;
 import com.paladin.framework.web.convert.Integer2EnumConverterFactory;
 import com.paladin.framework.web.convert.String2EnumConverterFactory;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
-import org.springframework.boot.web.server.ErrorPage;
-import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.format.FormatterRegistry;
-import org.springframework.http.HttpStatus;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.annotation.Resource;
 import java.util.Date;
-import java.util.List;
 
 @Slf4j
 @Configuration
-@ConditionalOnProperty(prefix = "paladin", value = "web-enabled", havingValue = "true", matchIfMissing = true)
-@EnableConfigurationProperties(WebProperties.class)
-public class MyWebMvcConfigurer implements WebMvcConfigurer {
+@EnableConfigurationProperties(SuperviseWebProperties.class)
+public class SuperviseWebConfigurer implements WebMvcConfigurer {
 
     @Resource
-    private WebProperties webProperties;
+    private SuperviseWebProperties webProperties;
+
+    @Autowired
+    private UserSessionThreadManager userSessionThreadManager;
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -58,13 +56,6 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
         if (rootView != null && rootView.length() > 0) {
             registry.addViewController("/").setViewName(rootView);
         }
-
-        List<UrlForwardOption> forwards = webProperties.getForwards();
-        if (forwards != null) {
-            for (UrlForwardOption forward : forwards) {
-                registry.addViewController(forward.getFrom()).setViewName(forward.getTo());
-            }
-        }
     }
 
     @Override
@@ -74,14 +65,12 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
         registry.addConverterFactory(new String2EnumConverterFactory());
     }
 
-    @Bean
-    public ConfigurableServletWebServerFactory webServerFactory() {
-        TomcatServletWebServerFactory factory = new TomcatServletWebServerFactory();
-        factory.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/static/html/404.html"));
-        factory.addErrorPages(new ErrorPage(HttpStatus.UNAUTHORIZED, "/static/html/401.html"));
-        factory.addErrorPages(new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, "/static/html/500.html"));
-        return factory;
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(userSessionThreadManager).addPathPatterns("/**");
     }
+
+
 
 
 }
