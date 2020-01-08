@@ -56,7 +56,6 @@ public class OrganizationWebConfigurer implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
-
         String rootView = webProperties.getRootView();
         if (rootView != null && rootView.length() > 0) {
             registry.addViewController("/").setViewName(rootView);

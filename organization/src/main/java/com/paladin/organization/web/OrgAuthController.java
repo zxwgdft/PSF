@@ -1,4 +1,4 @@
-package com.paladin.organization.web.rest;
+package com.paladin.organization.web;
 
 import com.paladin.framework.common.R;
 import com.paladin.organization.service.SysUserService;

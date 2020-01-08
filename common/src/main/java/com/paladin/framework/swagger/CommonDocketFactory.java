@@ -51,8 +51,8 @@ public class CommonDocketFactory {
 
     private static ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Organization API")
-                .description("人员组织中心API")
+                .title("SERVICE API")
+                .description("人员注册平台API")
                 .termsOfServiceUrl("")
                 .contact(new Contact("TontoZhou", "https://github.com/zxwgdft", "823498927@qq.com"))
                 .version("2.0")
