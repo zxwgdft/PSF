@@ -39,8 +39,6 @@ public class WebServiceSupport<Model> extends ServiceSupport<Model> {
             BaseModel baseModel = (BaseModel) model;
             baseModel.setCreateTime(now);
             baseModel.setCreateBy(uid);
-            baseModel.setUpdateTime(now);
-            baseModel.setUpdateBy(uid);
             baseModel.setDeleted(false);
         }
     }
