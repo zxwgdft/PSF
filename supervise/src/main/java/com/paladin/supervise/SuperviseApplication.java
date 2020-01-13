@@ -2,7 +2,7 @@ package com.paladin.supervise;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 import tk.mybatis.spring.annotation.MapperScan;
@@ -14,8 +14,8 @@ import tk.mybatis.spring.annotation.MapperScan;
 @ComponentScan({"com.paladin.framework", "com.paladin.supervise"})
 @MapperScan(basePackages = "com.paladin.supervise.dao")
 @SpringBootApplication
-@EnableEurekaClient
 @EnableFeignClients
+@EnableDiscoveryClient
 public class SuperviseApplication {
 
     public static void main(String[] args) {

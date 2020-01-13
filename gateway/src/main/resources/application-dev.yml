@@ -1,13 +1,15 @@
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8888/eureka/
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://localhost:8888/eureka/
 
 server:
   port: 8900
 
 spring:
   cloud:
+    nacos:
+      server-addr: 172.16.16.120:8848
     gateway:
       locator:
         enabled: true

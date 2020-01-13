@@ -28,9 +28,11 @@
 
 
     <properties>
+        <alibaba-sentinel.version>0.9.0.RELEASE</alibaba-sentinel.version>
         <com.google.zxing.version>3.4.0</com.google.zxing.version>
         <feign-core.version>10.4.0</feign-core.version>
         <lombok.version>1.18.10</lombok.version>
+        <nacos.version>2.1.1.RELEASE</nacos.version>
         <mybatis.version>3.5.3</mybatis.version>
         <mysql.version>8.0.18</mysql.version>
         <tk.mybatis.starter.version>2.1.5</tk.mybatis.starter.version>
@@ -46,7 +48,6 @@
         <swagger-ui.version>1.9.6</swagger-ui.version>
         <spring.version>5.2.2.RELEASE</spring.version>
         <spring-cloud.version>Hoxton.SR1</spring-cloud.version>
-        <spring-cloud-starter-alibaba-sentinel.version>0.9.0.RELEASE</spring-cloud-starter-alibaba-sentinel.version>
     </properties>
 
     <dependencyManagement>

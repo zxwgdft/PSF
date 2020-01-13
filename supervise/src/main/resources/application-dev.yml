@@ -1,13 +1,16 @@
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8888/eureka/
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://localhost:8888/eureka/
 
 server:
   port: 8902
 
 
 spring:
+  cloud:
+    nacos:
+      server-addr: 172.16.16.120:8848
   datasource:
     name: supervise
     url: jdbc:mysql://172.16.16.120:3306/supervise?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8

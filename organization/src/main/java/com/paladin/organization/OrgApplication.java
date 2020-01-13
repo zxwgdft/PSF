@@ -2,7 +2,7 @@ package com.paladin.organization;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.ComponentScan;
 import tk.mybatis.spring.annotation.MapperScan;
 
@@ -13,7 +13,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 @ComponentScan({"com.paladin.framework", "com.paladin.organization"})
 @MapperScan(basePackages = "com.paladin.organization.dao")
 @SpringBootApplication
-@EnableEurekaClient
+@EnableDiscoveryClient
 public class OrgApplication {
 
     public static void main(String[] args) {

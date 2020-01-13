@@ -11,7 +11,6 @@ mapper:
   mappers: com.paladin.framework.mybatis.CustomMapper
   enumAsSimpleType: true
 
-
 ribbon:
   ReadTimeout: 6000
   ConnectTimeout: 6000
