@@ -1,9 +1,9 @@
 package com.paladin.organization.model;
 
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 /**
  * @author TontoZhou
@@ -12,12 +12,14 @@ import lombok.ToString;
 @Setter
 @Getter
 @ApiModel(description = "应用资源实体类")
-@ToString
 public class AppResourceModel extends DynamicModel {
 
     public static final String FIELD_APP_ID = "appId";
+    public static final String FIELD_ID = "id";
 
+    @ApiModelProperty(value = "ID")
     private String id;
+    @ApiModelProperty(value = "应用ID")
     private String appId;
 
 }

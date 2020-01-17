@@ -17,6 +17,9 @@ import javax.persistence.Id;
 @ApiModel(description = "应用系统")
 public class App extends BaseModel {
 
+    public static final String FIELD_CLIENT_ID = "clientId";
+    public static final String FIELD_CLIENT_SECRET = "clientSecret";
+
     @Id
     @ApiModelProperty(value = "ID")
     private String id;
@@ -33,4 +36,12 @@ public class App extends BaseModel {
     @ApiModelProperty(value = "联系电话")
     private String contactPhone;
 
+    @ApiModelProperty(value = "客户端ID")
+    private String clientId;
+
+    @ApiModelProperty(value = "客户端秘钥")
+    private String clientSecret;
+
+    @ApiModelProperty(value = "客户端公钥")
+    private String clientPublicSecret;
 }

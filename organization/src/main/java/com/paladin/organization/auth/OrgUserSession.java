@@ -8,8 +8,6 @@ import com.paladin.framework.service.UserSession;
  */
 public class OrgUserSession extends UserSession {
 
-
-
     public OrgUserSession(String userId) {
         super(userId);
     }

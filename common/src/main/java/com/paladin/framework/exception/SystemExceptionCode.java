@@ -16,4 +16,9 @@ public class SystemExceptionCode {
      */
     public final static int CODE_ERROR_CONFIG = 20000;
 
+    /**
+     * 数据异常，请检查数据是否被人工修改
+     */
+    public final static int CODE_ERROR_DATA = 30000;
+
 }

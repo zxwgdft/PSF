@@ -2,7 +2,6 @@ package com.paladin.organization.service;
 
 import com.paladin.framework.common.HttpCode;
 import com.paladin.framework.common.R;
-import com.paladin.framework.jwt.TokenProvider;
 import com.paladin.framework.service.Condition;
 import com.paladin.framework.service.QueryType;
 import com.paladin.framework.service.WebServiceSupport;
@@ -21,7 +20,7 @@ import org.springframework.stereotype.Service;
 public class SysUserService extends WebServiceSupport<SysUser> {
 
     @Autowired
-    private TokenProvider tokenProvider;
+    private TokenService tokenService;
 
     public SysUser getUserByAccount(String account) {
         return searchOne(new Condition(SysUser.COLUMN_FIELD_ACCOUNT, QueryType.EQUAL, account));
@@ -35,7 +34,7 @@ public class SysUserService extends WebServiceSupport<SysUser> {
             SysUser sysUser = getUserByAccount(username);
             if (sysUser != null) {
                 if (SecureUtil.hashByMD5(password, sysUser.getSalt(), 1).equals(sysUser.getPassword())) {
-                    String jwtToken = tokenProvider.createJWT(sysUser.getId());
+                    String jwtToken = tokenService.createToken(sysUser.getId(), TokenService.TYPE_PERSONNEL);
                     return R.success(jwtToken);
                 } else {
                     return R.fail("密码错误");

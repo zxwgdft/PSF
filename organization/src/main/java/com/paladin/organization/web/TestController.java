@@ -2,6 +2,7 @@ package com.paladin.organization.web;
 
 import com.paladin.framework.common.R;
 import com.paladin.framework.utils.uuid.UUIDUtil;
+import com.paladin.organization.model.AppResource;
 import com.paladin.organization.model.AppResourceModel;
 import com.paladin.organization.model.DynamicProperty;
 import com.paladin.organization.service.AppResourceService;
@@ -68,10 +69,25 @@ public class TestController {
 
 
     @PostMapping("/do")
-    public Object doo(@RequestParam("json") String json) {
+    public R doo() {
 
 
-        return null;
+        AppResource resource = new AppResource();
+        resource.setAppId("0001");
+        resource.setModelId("5e1839112a24ca182ba1a6e0");
+        resource.setName("周期考评");
+        resource.setParent("5e1e815ea3a72b3a322dc7f9");
+
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("url","/hf/grkpgl/zqkp");
+        properties.put("code","GRKPGL:zqkp");
+
+
+        resource.setProperties(properties);
+
+        appResourceService.createResource(resource);
+
+        return R.success();
     }
 
 }

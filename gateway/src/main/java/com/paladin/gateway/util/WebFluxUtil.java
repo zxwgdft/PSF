@@ -5,6 +5,7 @@ import com.paladin.framework.exception.SystemExceptionCode;
 import com.paladin.framework.utils.JsonUtil;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.web.server.ServerWebExchange;
@@ -32,9 +33,10 @@ public class WebFluxUtil {
     public static Mono<Void> writeResponse(ServerWebExchange serverWebExchange, HttpStatus status, byte[] data) {
         ServerHttpResponse response = serverWebExchange.getResponse();
         response.setStatusCode(status);
+        response.getHeaders().setContentType(MediaType.APPLICATION_JSON);
         DataBuffer buffer = response
                 .bufferFactory().wrap(data);
-        return serverWebExchange.getResponse().writeWith(Flux.just(buffer));
+        return response.writeWith(Flux.just(buffer));
     }
 
     /**

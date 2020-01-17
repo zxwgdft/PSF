@@ -2,6 +2,7 @@ package com.paladin.framework.jwt;
 
 import io.jsonwebtoken.Claims;
 
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -11,10 +12,10 @@ import java.util.Map;
 public interface TokenProvider {
 
     default String createJWT(String subject) {
-        return createJWT(subject, null);
+        return createJWT(subject, null, null);
     }
 
-    String createJWT(String subject, Map<String, Object> claims);
+    String createJWT(String subject, Map<String, Object> claims, Date expiration);
 
 
     Claims parseJWT(String jwtToken);

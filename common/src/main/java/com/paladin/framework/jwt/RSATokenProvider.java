@@ -35,15 +35,16 @@ public class RSATokenProvider implements TokenProvider {
         return tokenProvider;
     }
 
-    public String createJWT(String subject, Map<String, Object> claims) {
+    public String createJWT(String subject, Map<String, Object> claims, Date expiration) {
         Date now = new Date();
-        Date validity = new Date(now.getTime() + this.tokenExpireMilliseconds);
-
+        if (expiration == null) {
+            expiration = new Date(now.getTime() + this.tokenExpireMilliseconds);
+        }
         return Jwts.builder()
                 .setSubject(subject)
                 .setIssuer(issuer)
                 .setIssuedAt(now)
-                .setExpiration(validity)
+                .setExpiration(expiration)
                 // claims加在最后，可覆盖之前的build
                 .addClaims(claims)
                 .signWith(SignatureAlgorithm.RS512, privateKey)

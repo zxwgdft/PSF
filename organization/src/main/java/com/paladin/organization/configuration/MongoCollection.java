@@ -6,9 +6,8 @@ package com.paladin.organization.configuration;
  */
 public enum MongoCollection {
 
+    APP_RESOURCE("应用资源"),
     APP_RESOURCE_MODEL("应用资源实体类集合");
-
-
 
 
     String comment;

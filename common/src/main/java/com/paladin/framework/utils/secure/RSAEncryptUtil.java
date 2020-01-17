@@ -151,4 +151,16 @@ public class RSAEncryptUtil {
     }
 
 
+    public static void  main(String[] args) throws Exception {
+        RSAKey key = RSAEncryptUtil.getRSAKey("random",512);
+
+        String pri = key.getPrivateKeyString();
+        String pub = key.getPublicKeyString();
+
+        System.out.println(pri);
+        System.out.println("-----------------");
+        System.out.println(pub);
+
+    }
+
 }

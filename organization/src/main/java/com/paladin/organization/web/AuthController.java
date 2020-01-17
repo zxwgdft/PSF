@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Api("人员认证")
 @RestController
 @RequestMapping("/organization")
-public class OrgAuthController {
+public class AuthController {
 
     @Autowired
     private SysUserService sysUserService;
@@ -29,6 +29,15 @@ public class OrgAuthController {
         R<String> result = sysUserService.authenticate(loginUser);
         return result;
     }
+
+    @ApiOperation(value = "OAuth2授权认证")
+    @PostMapping("/oauth/token")
+    public R<String> authenticateApp(@RequestBody LoginUser loginUser) {
+        R<String> result = sysUserService.authenticate(loginUser);
+        return result;
+    }
+
+
 
 
 }
