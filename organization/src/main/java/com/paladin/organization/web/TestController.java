@@ -1,7 +1,7 @@
 package com.paladin.organization.web;
 
 import com.paladin.framework.common.R;
-import com.paladin.framework.utils.uuid.UUIDUtil;
+import com.paladin.framework.utils.UUIDUtil;
 import com.paladin.organization.model.AppResource;
 import com.paladin.organization.model.AppResourceModel;
 import com.paladin.organization.model.DynamicProperty;

@@ -8,7 +8,7 @@ import java.util.Date;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
 
-import com.paladin.framework.utils.time.DateFormatUtil;
+import com.paladin.framework.utils.convert.DateFormatUtil;
 
 /**
  * 用于写Excel的列
@@ -41,7 +41,7 @@ public abstract class WriteColumn implements WriteComponent {
     // excel自带的格式化字符串
     private String format = "";
 
-    // 对齐方式,见{@link HorizontalAlignment}内参数
+    // 对齐方式
     private HorizontalAlignment alignment = HorizontalAlignment.CENTER;
 
     // 值格式化接口，可以为NULL
@@ -93,6 +93,7 @@ public abstract class WriteColumn implements WriteComponent {
      * 实例的转化方法,该方法用于缺省情况下
      * </p>
      *
+     * @param cell
      * @param value 具体数据
      * @return
      */
@@ -291,14 +292,14 @@ public abstract class WriteColumn implements WriteComponent {
     }
 
     /**
-     * 对齐方式,见{@link HorizontalAlignment}内参数
+     * 对齐方式
      */
     public HorizontalAlignment getAlignment() {
         return alignment;
     }
 
     /**
-     * 对齐方式,见{@link HorizontalAlignment}内参数
+     * 对齐方式
      */
     public void setAlignment(HorizontalAlignment alignment) {
         this.alignment = alignment;
@@ -347,7 +348,6 @@ public abstract class WriteColumn implements WriteComponent {
     }
 
     public String toString() {
-
         StringBuilder sb = new StringBuilder();
         sb.append("\nID：").append(id).append("\n列名：").append(name).append("\n列序号：").append(cellIndex);
         return sb.toString();

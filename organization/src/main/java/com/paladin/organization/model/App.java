@@ -42,6 +42,4 @@ public class App extends BaseModel {
     @ApiModelProperty(value = "客户端秘钥")
     private String clientSecret;
 
-    @ApiModelProperty(value = "客户端公钥")
-    private String clientPublicSecret;
 }

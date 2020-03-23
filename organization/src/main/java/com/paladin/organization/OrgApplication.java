@@ -20,5 +20,4 @@ public class OrgApplication {
         SpringApplication.run(OrgApplication.class, args);
     }
 
-
 }

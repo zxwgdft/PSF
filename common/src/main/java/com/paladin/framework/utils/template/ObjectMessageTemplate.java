@@ -14,10 +14,10 @@ import java.util.regex.Pattern;
 
 import com.paladin.framework.utils.StringUtil;
 import com.paladin.framework.utils.reflect.NameUtil;
-import com.paladin.framework.utils.regex.RegexUtil;
+import com.paladin.framework.utils.others.RegexUtil;
 
 /**
- * 根据传入的{@code Object}对模板进行创建消息，可传入{@link Map}类型参数或简单JAVA类型
+ * 根据传入的{@code Object}对模板进行创建消息，可传入{@link java.util.Map}类型参数或简单JAVA类型
  * <p>
  * Map:通过key取值并替换模板中相应的值
  * </p>

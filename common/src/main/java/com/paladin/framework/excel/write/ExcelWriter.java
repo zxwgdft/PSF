@@ -34,7 +34,6 @@ public class ExcelWriter<T> {
     /**
      * @param workbook    工作空间
      * @param startIndex  起始写入行号
-     * @param writeRow    Row描述
      * @param commonStyle 通用cell的样式
      * @param titleStyle  标题cell的样式
      * @throws ExcelWriteException
@@ -70,7 +69,7 @@ public class ExcelWriter<T> {
     }
 
     /**
-     * 写标题
+     * 写标题GeneratedValue
      *
      * @param row
      * @param wr

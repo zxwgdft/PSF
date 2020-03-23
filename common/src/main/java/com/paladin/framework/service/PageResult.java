@@ -1,14 +1,16 @@
 package com.paladin.framework.service;
 
-import java.util.List;
-
 import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
-
-import com.paladin.framework.utils.beans.copy.SimpleBeanCopier;
+import com.paladin.framework.utils.convert.SimpleBeanCopyUtil;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.util.List;
+
+@Getter
+@Setter
 @ApiModel(description = "分页返回结果")
 public class PageResult<T> {
 
@@ -33,8 +35,13 @@ public class PageResult<T> {
         this.limit = page.getPageSize();
         this.total = page.getTotal();
         this.data = page;
+    }
 
-        PageHelper.clearPage();
+    public PageResult(Page page, List<T> data) {
+        this.page = page.getPageNum();
+        this.limit = page.getPageSize();
+        this.total = page.getTotal();
+        this.data = data;
     }
 
     public <E> PageResult<E> convert(Class<E> target) {
@@ -44,42 +51,11 @@ public class PageResult<T> {
         result.total = this.total;
 
         if (data != null) {
-            result.data = SimpleBeanCopier.SimpleBeanCopyUtil.simpleCopyList(data, target);
+            result.data = SimpleBeanCopyUtil.simpleCopyList(data, target);
         }
 
         return result;
     }
 
-    public List<T> getData() {
-        return data;
-    }
-
-    public void setData(List<T> data) {
-        this.data = data;
-    }
-
-    public int getPage() {
-        return page;
-    }
-
-    public void setPage(int page) {
-        this.page = page;
-    }
-
-    public int getLimit() {
-        return limit;
-    }
-
-    public void setLimit(int limit) {
-        this.limit = limit;
-    }
-
-    public long getTotal() {
-        return total;
-    }
-
-    public void setTotal(long total) {
-        this.total = total;
-    }
 
 }

@@ -2,7 +2,7 @@ package com.paladin.gateway.util;
 
 import com.paladin.framework.exception.SystemException;
 import com.paladin.framework.exception.SystemExceptionCode;
-import com.paladin.framework.utils.JsonUtil;
+import com.paladin.framework.utils.convert.JsonUtil;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

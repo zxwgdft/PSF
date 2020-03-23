@@ -13,8 +13,10 @@ import java.util.Date;
 @Setter
 public abstract class BaseModel implements Serializable {
 
-    public static final String COLUMN_FIELD_DELETED = "deleted";
-    public static final String COLUMN_FIELD_CREATE_TIME = "createTime";
+
+
+    public static final String FIELD_DELETED = "deleted";
+    public static final String FIELD_CREATE_TIME = "createTime";
 
     @ApiModelProperty("创建时间")
     private Date createTime;

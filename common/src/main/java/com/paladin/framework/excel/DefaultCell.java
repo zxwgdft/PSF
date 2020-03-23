@@ -1,14 +1,13 @@
 package com.paladin.framework.excel;
 
+import com.paladin.framework.utils.convert.DateFormatUtil;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.DateUtil;
+
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.Date;
-
-import org.apache.poi.ss.usermodel.Cell;
-
-import com.paladin.framework.utils.time.DateFormatUtil;
-import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.DateUtil;
 
 public class DefaultCell implements ICell {
 
@@ -26,7 +25,7 @@ public class DefaultCell implements ICell {
 
         CellType type = cell.getCellType();
 
-        if (type == CellType.NUMERIC) {
+        if (type == CellType.NUMERIC && DateUtil.isCellDateFormatted(cell)) {
             return cell.getDateCellValue();
         }
 
@@ -101,6 +100,8 @@ public class DefaultCell implements ICell {
 
         if (type == CellType.BOOLEAN) {
             return cell.getBooleanCellValue() ? "true" : "false";
+        } else if (type == CellType.STRING) {
+            result = cell.getStringCellValue();
         } else if (type == CellType.NUMERIC) {
             if (DateUtil.isCellDateFormatted(cell)) {
                 Date date = cell.getDateCellValue();
@@ -110,23 +111,18 @@ public class DefaultCell implements ICell {
                     result = null;
                 }
             } else {
-                result = new BigDecimal(cell.getNumericCellValue()).toString();
+                result = BigDecimal.valueOf(cell.getNumericCellValue()).toString();
             }
-        } else if (type == CellType.STRING) {
-            result = cell.getStringCellValue();
         } else if (type == CellType.FORMULA) {
             result = cell.getStringCellValue();
             if (result == null || result.length() == 0) {
-                result = new BigDecimal(cell.getNumericCellValue()).toString();
+                result = BigDecimal.valueOf(cell.getNumericCellValue()).toString();
             }
-        } else {
-            result = null;
         }
 
         if (result == null) {
             return null;
         }
-
         result = result.trim();
         return result.equals("") ? null : result;
     }
@@ -138,7 +134,6 @@ public class DefaultCell implements ICell {
         }
 
         CellType type = cell.getCellType();
-
         if (type == CellType.NUMERIC) {
             return (int) Math.round(cell.getNumericCellValue());
         } else if (type == CellType.STRING) {

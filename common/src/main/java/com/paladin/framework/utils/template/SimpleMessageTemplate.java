@@ -3,7 +3,7 @@ package com.paladin.framework.utils.template;
 import java.util.Formatter;
 
 /**
- * 实质是{@link Formatter}的封装，详情看{@link Formatter}
+ * 实质是{@link java.util.Formatter}的封装，详情看{@link java.util.Formatter}
  * @author TontoZhou
  *
  */

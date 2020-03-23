@@ -27,6 +27,20 @@ public class RSAEncryptUtil {
     private static final Map<String, RSAPublicKey> publicKeyMap = new HashMap<>();
     private static final Map<String, RSAPrivateKey> privateKeyMap = new HashMap<>();
 
+
+    // 线程变量
+    private static ThreadLocal<Cipher> cipherHolder = new ThreadLocal<Cipher>() {
+        protected Cipher initialValue() {
+            try {
+                return Cipher.getInstance("RSA");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    };
+
+
     /**
      * 获取RSA密钥，如果没有则创建
      *
@@ -103,8 +117,8 @@ public class RSAEncryptUtil {
      * @return 密文
      * @throws Exception 加密异常
      */
-    public static String encrypt(String content, String publicKeyString) throws Exception {
-        return encrypt(content, getRSAPublicKey(publicKeyString));
+    public static String encrypt(String content, String publicKeyString, boolean urlSafe) throws Exception {
+        return encrypt(content, getRSAPublicKey(publicKeyString), urlSafe);
     }
 
     /**
@@ -115,10 +129,11 @@ public class RSAEncryptUtil {
      * @return 密文
      * @throws Exception 加密异常
      */
-    public static String encrypt(String content, RSAPublicKey publicKey) throws Exception {
-        Cipher cipher = Cipher.getInstance("RSA");
+    public static String encrypt(String content, RSAPublicKey publicKey, boolean urlSafe) throws Exception {
+        Cipher cipher = cipherHolder.get();
         cipher.init(Cipher.ENCRYPT_MODE, publicKey);
-        return Base64.encodeBase64String(cipher.doFinal(content.getBytes("UTF-8")));
+        byte[] bytes = cipher.doFinal(content.getBytes("UTF-8"));
+        return urlSafe ? Base64.encodeBase64URLSafeString(bytes) : Base64.encodeBase64String(bytes);
     }
 
     /**
@@ -145,14 +160,14 @@ public class RSAEncryptUtil {
         //64位解码加密后的字符串
         byte[] inputByte = Base64.decodeBase64(content.getBytes("UTF-8"));
         //RSA解密
-        Cipher cipher = Cipher.getInstance("RSA");
+        Cipher cipher = cipherHolder.get();
         cipher.init(Cipher.DECRYPT_MODE, privateKey);
         return new String(cipher.doFinal(inputByte));
     }
 
 
-    public static void  main(String[] args) throws Exception {
-        RSAKey key = RSAEncryptUtil.getRSAKey("random",512);
+    public static void main(String[] args) throws Exception {
+        RSAKey key = RSAEncryptUtil.getRSAKey("random", 512);
 
         String pri = key.getPrivateKeyString();
         String pub = key.getPublicKeyString();
