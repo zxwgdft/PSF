@@ -43,6 +43,6 @@ spring:
     password: 123456
 
 jwt:
-  key: iljOQvU3MdAu99fJEGQn0yi5VUNttMMD0EKcwtqbE4EDpBqYWSgsgs5T9V9fVgBDh3VDpCaYEJdewLG4f8wxEcLcNF7sSIWYSjjF01ObeFjxTo4frSfy2aliJABV2
+  key: deDFCOSOeuWNmkTqDLkeFRYe4Eunimz4cescnhGA3J8=
   issuer: organization
   expire-millisecond: 1800000

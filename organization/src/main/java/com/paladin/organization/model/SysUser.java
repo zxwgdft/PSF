@@ -1,8 +1,7 @@
 package com.paladin.organization.model;
 
 import com.paladin.framework.common.BaseModel;
-import com.paladin.organization.model.constant.Bool;
-import com.paladin.organization.model.constant.UserState;
+import com.paladin.organization.model.constant.UserType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,14 +20,15 @@ public class SysUser extends BaseModel {
 
     @Id
     private String id;
-    private Integer type;
+    private UserType type;
     private String account;
     private String password;
     private String salt;
-    private UserState state;
+    private String userId;
+    private Integer state;
     private String cellphone;
     private String lastLoginIp;
     private Date lastLoginTime;
-    private Bool isFirstLogin;
+    private Boolean isFirstLogin;
 
 }

@@ -1,23 +1,17 @@
-package com.paladin.organization.model;
+package com.paladin.organization.service.vo;
 
-import com.paladin.framework.common.BaseModel;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Id;
-
 /**
  * @author TontoZhou
- * @since 2020/1/7
+ * @since 2020/3/25
  */
-@Setter
 @Getter
-@ApiModel(description = "机构")
-public class OrgAgency extends BaseModel {
+@Setter
+public class OpenAgency {
 
-    @Id
     @ApiModelProperty(value = "ID")
     private String id;
 
@@ -53,6 +47,5 @@ public class OrgAgency extends BaseModel {
 
     @ApiModelProperty(value = "单位级别(正科，副科，股级..)")
     private Integer level;
-
 
 }

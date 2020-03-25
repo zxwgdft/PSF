@@ -11,15 +11,12 @@ import java.io.Serializable;
  */
 public abstract class UserSession implements Serializable {
 
-    private String userId;
-
-    public UserSession(String userId) {
-        this.userId = userId;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
+    /**
+     * 用户ID，不能为空
+     *
+     * @return
+     */
+    public abstract String getUserId();
 
     @Override
     public boolean equals(Object o) {
@@ -30,16 +27,14 @@ public abstract class UserSession implements Serializable {
             return false;
 
         final UserSession that = (UserSession) o;
-        return userId.equals(that.userId);
+        return getUserId().equals(that.getUserId());
     }
 
     @Override
     public int hashCode() {
+        String userId = getUserId();
         return userId != null ? userId.hashCode() : 0;
     }
-
-
-
 
 
 }

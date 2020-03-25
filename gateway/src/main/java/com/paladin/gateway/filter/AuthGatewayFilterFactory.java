@@ -1,7 +1,7 @@
 package com.paladin.gateway.filter;
 
 import com.paladin.framework.jwt.RSATokenProvider;
-import com.paladin.framework.jwt.SHATokenProvider;
+import com.paladin.framework.jwt.AESTokenProvider;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 public class AuthGatewayFilterFactory extends AbstractGatewayFilterFactory<AuthGatewayFilterFactory.Config> {
 
     private final static String JWT_TYPE_RSA = "RSA";
-    private final static String JWT_TYPE_SHA = "SHA";
+    private final static String JWT_TYPE_AES = "AES";
 
     public AuthGatewayFilterFactory() {
         super(Config.class);
@@ -34,7 +34,7 @@ public class AuthGatewayFilterFactory extends AbstractGatewayFilterFactory<AuthG
             tokenProvider.setPublicKey(config.getJwtBase64Key());
             filter.setTokenProvider(tokenProvider);
         } else {
-            SHATokenProvider tokenProvider = new SHATokenProvider();
+            AESTokenProvider tokenProvider = new AESTokenProvider();
             tokenProvider.setBase64Key(config.getJwtBase64Key());
             filter.setTokenProvider(tokenProvider);
         }
@@ -67,9 +67,9 @@ public class AuthGatewayFilterFactory extends AbstractGatewayFilterFactory<AuthG
         private long updateTokenIdle = 10 * 60 * 1000;
 
         /**
-         * Token签名加密类型，RSA、SHA
+         * Token签名加密类型，RSA、AES
          */
-        private String JwtType = JWT_TYPE_SHA;
+        private String JwtType = JWT_TYPE_AES;
 
         /**
          * base64格式秘钥，如果是RSA则是公钥

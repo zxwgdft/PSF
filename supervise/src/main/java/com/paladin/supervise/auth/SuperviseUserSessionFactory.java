@@ -23,7 +23,7 @@ public class SuperviseUserSessionFactory implements UserSessionFactory {
         if (personnel == null) {
             throw new BusinessException("从平台同步用户信息失败");
         }
-        return new SuperviseUserSession(subject, personnel);
+        return new SuperviseUserSession(personnel);
     }
 
 }

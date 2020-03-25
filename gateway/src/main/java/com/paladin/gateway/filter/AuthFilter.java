@@ -13,8 +13,6 @@ import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
-import java.util.Date;
-
 /**
  * @author TontoZhou
  * @since 2019/12/23
@@ -39,15 +37,17 @@ public class AuthFilter implements GatewayFilter, Ordered {
                 Claims claims = tokenProvider.parseJWT(token);
                 String subject = claims.getSubject();
 
+                // subject 一般为user_id
                 exchange = WebFluxUtil.addRequestHeader(exchange, config.getUserIdField(), subject);
 
-                Date expirationTime = claims.getExpiration();
-                if (expirationTime.getTime() - System.currentTimeMillis() < config.getUpdateTokenIdle()) {
-                    // 剩余过期时间小于一定值，则刷新一个新jwtToken
-                    String newToken = tokenProvider.createJWT(subject);
-                    // 在相应头中添加新Token
-                    exchange.getResponse().getHeaders().add(config.getRefreshTokenField(), newToken);
-                }
+//                // 过期暂时不处理，由客户端处理
+//                Date expirationTime = claims.getExpiration();
+//                if (expirationTime.getTime() - System.currentTimeMillis() < config.getUpdateTokenIdle()) {
+//                    // 剩余过期时间小于一定值，则刷新一个新jwtToken
+//                    String newToken = tokenProvider.createJWT(subject);
+//                    // 在相应头中添加新Token
+//                    exchange.getResponse().getHeaders().add(config.getRefreshTokenField(), newToken);
+//                }
 
                 return chain.filter(exchange);
             } catch (UnsupportedJwtException | MalformedJwtException | SignatureException e) {

@@ -12,12 +12,12 @@ import com.paladin.framework.common.CodeEnum;
 public enum IdentificationType implements CodeEnum {
     SFZ(1, "身份证"),
     JMHKB(2, "居民户口簿"),
-    HZ(2, "护照"),
-    JGZ(2, "军官证"),
-    JSZ(2, "驾驶执照"),
-    GATXZ(2, "港澳居民来往内地通行证"),
-    TWTXZ(2, "台湾居民来往内地通行证"),
-    QT(2, "其他");
+    HZ(3, "护照"),
+    JGZ(4, "军官证"),
+    JSZ(5, "驾驶执照"),
+    GATXZ(6, "港澳居民来往内地通行证"),
+    TWTXZ(7, "台湾居民来往内地通行证"),
+    QT(9, "其他");
 
     private int code;
     private String name;

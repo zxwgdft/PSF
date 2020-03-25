@@ -11,13 +11,16 @@ public class SuperviseUserSession extends UserSession {
 
     private OrgPersonnel personnel;
 
-    public SuperviseUserSession(String userId, OrgPersonnel personnel) {
-        super(userId);
+    public SuperviseUserSession(OrgPersonnel personnel) {
         this.personnel = personnel;
     }
 
-
     public OrgPersonnel getPersonnel() {
         return personnel;
+    }
+
+    @Override
+    public String getUserId() {
+        return personnel.getId();
     }
 }

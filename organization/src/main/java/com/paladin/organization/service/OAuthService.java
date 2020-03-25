@@ -43,13 +43,14 @@ public class OAuthService {
             throw new BusinessException(HttpStatus.INTERNAL_SERVER_ERROR, "不存在的客户端[ID:" + clientId + "]");
         }
 
-        if (!clientSecret.equals(app.getClientSecret())) {
+        if (!clientSecret.equals(app.getAppSecret())) {
             throw new BusinessException(HttpStatus.INTERNAL_SERVER_ERROR, "客户端秘钥不正确");
         }
 
         Date expiration = new Date(System.currentTimeMillis() + expireMillisecond);
 
-        String token = tokenService.createToken(app.getId(), TokenService.TYPE_APP, expiration);
+        // 这里 UUID 与JWT 是否有区别
+        String token = tokenService.createToken(app.getId(), expiration);
 
         return new OAuthToken(token, expireMillisecond);
     }

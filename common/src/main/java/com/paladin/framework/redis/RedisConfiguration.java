@@ -49,7 +49,6 @@ public class RedisConfiguration extends CachingConfigurerSupport {
     @ConditionalOnMissingBean
     public RedisTemplate<String, Object> getJdkRedisTemplate(JedisConnectionFactory jedisConnectionFactory) {
         log.debug("getJdkRedisTemplate()");
-
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(jedisConnectionFactory);
         return redisTemplate;
@@ -59,7 +58,6 @@ public class RedisConfiguration extends CachingConfigurerSupport {
     @ConditionalOnMissingBean
     public RedisTemplate<String, Object> getJsonRedisTemplate(JedisConnectionFactory jedisConnectionFactory) {
         log.debug("getJsonRedisTemplate()");
-
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
 
         redisTemplate.setKeySerializer(redisTemplate.getStringSerializer());

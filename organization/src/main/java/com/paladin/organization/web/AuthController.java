@@ -26,18 +26,8 @@ public class AuthController {
     @ApiOperation(value = "账号认证")
     @PostMapping("/authenticate")
     public R<String> authenticateByAccount(@RequestBody LoginUser loginUser) {
-        R<String> result = sysUserService.authenticate(loginUser);
-        return result;
+        return sysUserService.authenticate(loginUser);
     }
-
-    @ApiOperation(value = "OAuth2授权认证")
-    @PostMapping("/oauth/token")
-    public R<String> authenticateApp(@RequestBody LoginUser loginUser) {
-        R<String> result = sysUserService.authenticate(loginUser);
-        return result;
-    }
-
-
 
 
 }
