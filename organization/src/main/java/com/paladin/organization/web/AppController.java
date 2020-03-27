@@ -1,9 +1,9 @@
 package com.paladin.organization.web;
 
-import com.paladin.framework.common.R;
 import com.paladin.organization.model.App;
 import com.paladin.organization.service.AppRedirectService;
 import com.paladin.organization.service.AppService;
+import com.paladin.organization.service.vo.OpenPersonnel;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +46,7 @@ public class AppController {
 
     @ApiOperation(value = "检查跳转是否合法")
     @PostMapping("/check")
-    public R checkRedirect(String redirectCode) {
+    public OpenPersonnel checkRedirect(String redirectCode) {
         return appRedirectService.checkRedirect(redirectCode);
     }
 

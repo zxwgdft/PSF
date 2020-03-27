@@ -1,6 +1,5 @@
 package com.paladin.framework.redis;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -17,6 +16,7 @@ import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.RedisSerializer;
 
 /**
  * @author TontoZhou
@@ -46,7 +46,6 @@ public class RedisConfiguration extends CachingConfigurerSupport {
     }
 
     @Bean("jdkRedisTemplate")
-    @ConditionalOnMissingBean
     public RedisTemplate<String, Object> getJdkRedisTemplate(JedisConnectionFactory jedisConnectionFactory) {
         log.debug("getJdkRedisTemplate()");
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
@@ -55,19 +54,16 @@ public class RedisConfiguration extends CachingConfigurerSupport {
     }
 
     @Bean("jsonRedisTemplate")
-    @ConditionalOnMissingBean
     public RedisTemplate<String, Object> getJsonRedisTemplate(JedisConnectionFactory jedisConnectionFactory) {
         log.debug("getJsonRedisTemplate()");
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
 
-        redisTemplate.setKeySerializer(redisTemplate.getStringSerializer());
-        redisTemplate.setHashKeySerializer(redisTemplate.getStringSerializer());
+        RedisSerializer<String> stringRedisSerializer = redisTemplate.getStringSerializer();
+        redisTemplate.setKeySerializer(stringRedisSerializer);
+        redisTemplate.setHashKeySerializer(stringRedisSerializer);
 
         // 使用Jackson2JsonRedisSerialize 替换默认序列化
         Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<>(Object.class);
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        jackson2JsonRedisSerializer.setObjectMapper(objectMapper);
 
         redisTemplate.setHashValueSerializer(jackson2JsonRedisSerializer);
         redisTemplate.setValueSerializer(jackson2JsonRedisSerializer);

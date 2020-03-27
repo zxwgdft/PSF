@@ -1,17 +1,16 @@
 package com.paladin.organization.service;
 
-import com.paladin.framework.common.R;
 import com.paladin.framework.exception.BusinessException;
 import com.paladin.framework.utils.UUIDUtil;
 import com.paladin.organization.core.AppClientSession;
 import com.paladin.organization.core.OrgUserSession;
 import com.paladin.organization.core.UserSessionManager;
 import com.paladin.organization.model.App;
-import com.paladin.organization.model.constant.UserType;
 import com.paladin.organization.service.constant.RedisKeyPrefix;
 import com.paladin.organization.service.dto.AppRedirect;
 import com.paladin.organization.service.vo.OpenPersonnel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -33,6 +32,7 @@ public class AppRedirectService {
     private OrgPersonnelService personnelService;
 
     @Autowired
+    @Qualifier("jsonRedisTemplate")
     private RedisTemplate<String, Object> jsonRedisTemplate;
 
     // 跳转码失效时间
@@ -112,11 +112,10 @@ public class AppRedirectService {
      * @param redirectCode 重定向code
      * @return 如果合法则返回用户信息，否则返回错误相关信息
      */
-    public R checkRedirect(String redirectCode) {
-
+    public OpenPersonnel checkRedirect(String redirectCode) {
         AppRedirect appRedirect = getRedirect(redirectCode);
         if (appRedirect == null) {
-            return R.fail("没有需要跳转的用户请求，或者跳转请求已经过期");
+            throw new BusinessException("没有需要跳转的用户请求，或者跳转请求已经过期");
         }
 
         AppClientSession session = UserSessionManager.getAppClientSession();
@@ -128,11 +127,11 @@ public class AppRedirectService {
         if (session.getUserId().equals(appRedirect.getAppId())) {
             OpenPersonnel personnel = personnelService.get(appRedirect.getUserId(), OpenPersonnel.class);
             if (personnel == null) {
-                return R.fail("用户信息已经不存在");
+                throw new BusinessException("用户信息已经不存在");
             }
-            return R.success(personnel);
+            return personnel;
         } else {
-            return R.fail("跳转请求不匹配");
+            throw new BusinessException("跳转请求不匹配");
         }
     }
 }
