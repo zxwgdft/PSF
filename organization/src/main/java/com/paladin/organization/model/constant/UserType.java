@@ -5,7 +5,7 @@ package com.paladin.organization.model.constant;
  * @since 2020/3/25
  */
 public enum UserType {
-    APP,
-    ADMIN,
+    APP_ADMIN,
+    SYS_ADMIN,
     PERSONNEL;
 }

@@ -1,7 +1,8 @@
 package com.paladin.organization.web;
 
 import com.paladin.framework.common.R;
-import com.paladin.organization.service.SysUserService;
+import com.paladin.organization.core.AuthenticationManager;
+import com.paladin.organization.service.dto.LoginApp;
 import com.paladin.organization.service.dto.LoginUser;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -21,13 +22,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     @Autowired
-    private SysUserService sysUserService;
+    private AuthenticationManager authenticationManager;
 
-    @ApiOperation(value = "账号认证")
-    @PostMapping("/authenticate")
-    public R<String> authenticateByAccount(@RequestBody LoginUser loginUser) {
-        return sysUserService.authenticate(loginUser);
+    @ApiOperation(value = "用户账号认证")
+    @PostMapping("/authenticate/user")
+    public R authenticateByAccount(@RequestBody LoginUser loginUser) {
+        return authenticationManager.authenticate(loginUser);
     }
 
-
+    @ApiOperation(value = "应用客户端认证")
+    @PostMapping("/authenticate/app")
+    public R authenticateByApp(@RequestBody LoginApp loginApp) {
+        return authenticationManager.authenticate(loginApp);
+    }
 }

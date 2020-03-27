@@ -15,7 +15,7 @@ spring:
         enabled: true
       routes:
         - predicates:
-            - Path=/organization/authenticate
+            - Path=/organization/authenticate/**
           uri: lb://service-organization
         - id: organization-api
           predicates:

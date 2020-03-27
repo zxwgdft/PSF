@@ -2,9 +2,10 @@ package com.paladin.organization.service;
 
 import com.paladin.framework.common.R;
 import com.paladin.framework.exception.BusinessException;
-import com.paladin.framework.service.UserSessionThreadManager;
 import com.paladin.framework.utils.UUIDUtil;
-import com.paladin.organization.auth.OrgUserSession;
+import com.paladin.organization.core.AppClientSession;
+import com.paladin.organization.core.OrgUserSession;
+import com.paladin.organization.core.UserSessionManager;
 import com.paladin.organization.model.App;
 import com.paladin.organization.model.constant.UserType;
 import com.paladin.organization.service.constant.RedisKeyPrefix;
@@ -75,8 +76,12 @@ public class AppRedirectService {
         // TODO 判断是否有权跳转应用
 
         String url = app.getRedirectUrl();
-        String userId = UserSessionThreadManager.getCurrentUserSession().getUserId();
+        OrgUserSession session = UserSessionManager.getOrgUserSession();
+        if (session == null) {
+            throw new BusinessException("登录用户没有权限重定向跳转");
+        }
 
+        String userId = session.getUserId();
 
         // 确认码用于APP确认是否有该用户跳转登录，防止未经服务器的跳转登录
         String redirectCode = UUIDUtil.createUUID();
@@ -114,13 +119,14 @@ public class AppRedirectService {
             return R.fail("没有需要跳转的用户请求，或者跳转请求已经过期");
         }
 
-        // 判断是否同一个app
-        String appId = appRedirect.getAppId();
-        OrgUserSession userSession = (OrgUserSession) UserSessionThreadManager.getCurrentUserSession();
+        AppClientSession session = UserSessionManager.getAppClientSession();
+        if (session == null) {
+            throw new BusinessException("登录用户非应用客户端");
+        }
 
-        if (userSession.getUserType() == UserType.APP && userSession.getUserId().equals(appId)) {
-            String userId = userSession.getUserId();
-            OpenPersonnel personnel = personnelService.get(userId, OpenPersonnel.class);
+        // 判断是否同一个app
+        if (session.getUserId().equals(appRedirect.getAppId())) {
+            OpenPersonnel personnel = personnelService.get(appRedirect.getUserId(), OpenPersonnel.class);
             if (personnel == null) {
                 return R.fail("用户信息已经不存在");
             }

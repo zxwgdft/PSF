@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class AppService extends WebServiceSupport<App> {
 
-    public App getAppByClient(String clientId) {
-        return searchOne(new Condition(App.FIELD_CLIENT_ID, QueryType.EQUAL, clientId));
+    public App getAppByAppId(String appId) {
+        return searchOne(new Condition(App.FIELD_APP_ID, QueryType.EQUAL, appId));
     }
 }

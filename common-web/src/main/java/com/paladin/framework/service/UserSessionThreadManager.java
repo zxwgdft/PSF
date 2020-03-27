@@ -27,10 +27,11 @@ public class UserSessionThreadManager implements HandlerInterceptor {
         String userId = request.getHeader(authUserField);
         if (userId != null && userId.length() > 0) {
             UserSession userSession = userSessionFactory.createUserSession(userId);
-            if (userSession != null) {
-                sessionMap.set(userSession);
-            }
+            sessionMap.set(userSession);
+        } else {
+            sessionMap.set(null);
         }
+
         return true;
     }
 

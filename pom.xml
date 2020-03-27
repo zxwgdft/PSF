@@ -16,7 +16,6 @@
         <module>supervise</module>
         <module>gateway</module>
         <module>common-web</module>
-        <module>web</module>
     </modules>
 
     <parent>

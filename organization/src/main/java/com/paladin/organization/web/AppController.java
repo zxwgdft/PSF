@@ -33,7 +33,7 @@ public class AppController {
     }
 
     @ApiOperation(value = "获取所有应用")
-    @PostMapping("/find/all")
+    @GetMapping("/find/all")
     public List<App> findApps() {
         return appService.findAll();
     }

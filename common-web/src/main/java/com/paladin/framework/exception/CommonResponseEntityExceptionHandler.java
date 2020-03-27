@@ -45,6 +45,10 @@ public class CommonResponseEntityExceptionHandler extends ResponseEntityExceptio
             body = R.fail(ex.getMessage());
         }
 
+        if (!(body instanceof R)) {
+            body = R.fail(ex.getMessage(), body);
+        }
+
         return new ResponseEntity<>(body, headers, status);
     }
 
