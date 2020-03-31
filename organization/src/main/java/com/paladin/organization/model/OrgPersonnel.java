@@ -48,19 +48,7 @@ public class OrgPersonnel extends BaseModel {
 
     @ApiModelProperty(value = "机构ID")
     private String agencyId;
-
-    @ApiModelProperty(value = "机构名称")
-    private String agencyName;
-
-    @ApiModelProperty(value = "城市代码")
-    private Integer cityCode;
-
-    @ApiModelProperty(value = "乡镇代码")
-    private Integer townCode;
-
-    @ApiModelProperty(value = "行政区划代码")
-    private Integer districtCode;
-
+    
     @ApiModelProperty(value = "国籍")
     private Integer nationality;
 

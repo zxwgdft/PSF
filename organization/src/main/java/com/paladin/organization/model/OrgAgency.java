@@ -18,9 +18,6 @@ import javax.persistence.Id;
 public class OrgAgency extends BaseModel {
 
     @Id
-    @ApiModelProperty(value = "ID")
-    private String id;
-
     @ApiModelProperty(value = "机构代码")
     private String code;
 

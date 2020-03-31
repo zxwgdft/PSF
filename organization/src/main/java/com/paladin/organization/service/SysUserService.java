@@ -15,7 +15,7 @@ public class SysUserService extends WebServiceSupport<SysUser> {
 
 
     public SysUser getUserByAccount(String account) {
-        return searchOne(new Condition(SysUser.COLUMN_FIELD_ACCOUNT, QueryType.EQUAL, account));
+        return searchOne(new Condition(SysUser.FIELD_ACCOUNT, QueryType.EQUAL, account));
     }
 
 

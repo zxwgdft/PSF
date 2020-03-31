@@ -12,9 +12,6 @@ import lombok.Setter;
 @Setter
 public class OpenAgency {
 
-    @ApiModelProperty(value = "ID")
-    private String id;
-
     @ApiModelProperty(value = "机构代码")
     private String code;
 

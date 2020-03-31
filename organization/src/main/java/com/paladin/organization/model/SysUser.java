@@ -15,7 +15,7 @@ import java.util.Date;
 @Setter
 public class SysUser extends BaseModel {
 
-    public static final String COLUMN_FIELD_ACCOUNT = "account";
+    public static final String FIELD_ACCOUNT = "account";
 
     @Id
     private String id;
