@@ -11,7 +11,7 @@ import org.apache.shiro.realm.Realm;
 import java.util.Collection;
 
 /**
- * 多Realm验证,准确抛出异常
+ * 多Realm验证
  *
  * @author TontoZhou
  * @since 2019/11/27
@@ -21,10 +21,6 @@ public class MultiRealmAuthenticator extends ModularRealmAuthenticator {
 
     /**
      * 重写该方法保证异常正确抛出,需要多个Realm支持不同Token，否则会出现异常覆盖
-     *
-     * @param realms
-     * @param token
-     * @return
      */
     @Override
     protected AuthenticationInfo doMultiRealmAuthentication(Collection<Realm> realms, AuthenticationToken token) {
@@ -32,6 +28,10 @@ public class MultiRealmAuthenticator extends ModularRealmAuthenticator {
         AuthenticationStrategy strategy = getAuthenticationStrategy();
 
         AuthenticationInfo aggregate = strategy.beforeAllAttempts(realms, token);
+
+        if (log.isTraceEnabled()) {
+            log.trace("Iterating through {} realms for PAM authentication", realms.size());
+        }
 
         AuthenticationException authException = null;
 
@@ -41,24 +41,35 @@ public class MultiRealmAuthenticator extends ModularRealmAuthenticator {
 
             if (realm.supports(token)) {
 
+                log.trace("Attempting to authenticate token [{}] using realm [{}]", token, realm);
+
                 AuthenticationInfo info = null;
 
                 try {
                     info = realm.getAuthenticationInfo(token);
                 } catch (Throwable throwable) {
 
+                    // 记录异常
                     if (throwable instanceof AuthenticationException) {
                         authException = (AuthenticationException) throwable;
                     } else {
                         authException = new AuthenticationException("账号登录异常", throwable);
                     }
+
+                    if (log.isDebugEnabled()) {
+                        String msg = "Realm [" + realm + "] threw an exception during a multi-realm authentication attempt:";
+                        log.debug(msg, throwable);
+                    }
                 }
 
                 aggregate = strategy.afterAttempt(realm, token, info, aggregate, authException);
 
+            } else {
+                log.debug("Realm [{}] does not support token {}.  Skipping realm.", realm, token);
             }
         }
 
+        // 存在异常直接抛出
         if (authException != null) {
             throw authException;
         }
