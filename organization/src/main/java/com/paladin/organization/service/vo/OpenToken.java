@@ -15,7 +15,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class OpenToken {
 
-    private String token;
+    private String accessToken;
     private long expiresTime;
 
 }

@@ -8,11 +8,11 @@ import com.paladin.framework.service.UserSession;
  */
 public class AppClientSession extends UserSession {
 
-    private String id;
+    private String appId;
     private AppClientSessionLoader sessionLoader;
 
-    public AppClientSession(String id, AppClientSessionLoader sessionLoader) {
-        this.id = id;
+    public AppClientSession(String appId, AppClientSessionLoader sessionLoader) {
+        this.appId = appId;
         this.sessionLoader = sessionLoader;
     }
 
@@ -31,7 +31,7 @@ public class AppClientSession extends UserSession {
 
     @Override
     public String getUserId() {
-        return id;
+        return appId;
     }
 
 
