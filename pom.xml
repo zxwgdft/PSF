@@ -11,10 +11,9 @@
 
     <modules>
         <module>common</module>
-        <module>eureka</module>
-        <module>organization</module>
-        <module>gateway</module>
         <module>common-web</module>
+        <module>gateway</module>
+        <module>organization</module>
     </modules>
 
     <parent>
