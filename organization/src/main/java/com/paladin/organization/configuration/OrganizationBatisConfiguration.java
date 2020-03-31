@@ -1,5 +1,6 @@
-package com.paladin.framework.mybatis;
+package com.paladin.organization.configuration;
 
+import com.paladin.framework.mybatis.EnumTypeHandler;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Component;
  * @since 2020/1/3
  */
 @Component
-public class MyBatisConfiguration implements InitializingBean {
+public class OrganizationBatisConfiguration implements InitializingBean {
 
     @Autowired
     public SqlSessionFactory sqlSessionFactory;
@@ -18,7 +19,7 @@ public class MyBatisConfiguration implements InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         // 修改mybatis默认枚举处理器
-        sqlSessionFactory.getConfiguration().getTypeHandlerRegistry().setDefaultEnumTypeHandler(EnumTypeHandler.class);
+        // sqlSessionFactory.getConfiguration().getTypeHandlerRegistry().setDefaultEnumTypeHandler(EnumTypeHandler.class);
     }
 
 

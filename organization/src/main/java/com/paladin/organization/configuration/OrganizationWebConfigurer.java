@@ -2,19 +2,12 @@ package com.paladin.organization.configuration;
 
 import com.paladin.framework.service.UserSessionThreadManager;
 import com.paladin.framework.web.convert.DateFormatter;
-import com.paladin.framework.web.convert.Integer2EnumConverterFactory;
-import com.paladin.framework.web.convert.String2EnumConverterFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
-import org.springframework.boot.web.server.ErrorPage;
-import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.format.FormatterRegistry;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -65,8 +58,8 @@ public class OrganizationWebConfigurer implements WebMvcConfigurer {
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addFormatterForFieldType(Date.class, new DateFormatter());
-        registry.addConverterFactory(new Integer2EnumConverterFactory());
-        registry.addConverterFactory(new String2EnumConverterFactory());
+        //registry.addConverterFactory(new Integer2EnumConverterFactory());
+        //registry.addConverterFactory(new String2EnumConverterFactory());
     }
 
     @Override
