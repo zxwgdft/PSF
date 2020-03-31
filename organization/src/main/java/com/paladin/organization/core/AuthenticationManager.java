@@ -171,6 +171,7 @@ public class AuthenticationManager implements OrgUserSessionLoader, AppClientSes
      */
     @Override
     public void loadAppClientSession(AppClientSession session) {
+
         // TODO 读取客户端session相关信息
     }
 
@@ -187,4 +188,9 @@ public class AuthenticationManager implements OrgUserSessionLoader, AppClientSes
     public String createAppClientSubject(String id) {
         return appClientSessionPrefix + id;
     }
+
+    public String getAppClientIdFromSubject(String subject) {
+        return subject.substring(appClientSessionPrefix.length());
+    }
+
 }

@@ -33,7 +33,7 @@ public class AppRedirectService {
 
     @Autowired
     @Qualifier("jsonRedisTemplate")
-    private RedisTemplate<String, Object> jsonRedisTemplate;
+    private RedisTemplate<String, Object> redisTemplate;
 
     // 跳转码失效时间
     @Value("${app.redirect-code-time-out:5}")
@@ -44,14 +44,14 @@ public class AppRedirectService {
      * 获取用户跳转确认码
      */
     private AppRedirect getRedirect(String redirectCode) {
-        return (AppRedirect) jsonRedisTemplate.opsForValue().get(getRedirectKey(redirectCode));
+        return (AppRedirect) redisTemplate.opsForValue().get(getRedirectKey(redirectCode));
     }
 
     /**
      * 持久化跳转确认码
      */
     private void saveRedirect(AppRedirect appRedirect) {
-        jsonRedisTemplate.opsForValue().set(getRedirectKey(appRedirect.getCode()), appRedirect, redirectCodeTimeOut, TimeUnit.MINUTES);
+        redisTemplate.opsForValue().set(getRedirectKey(appRedirect.getCode()), appRedirect, redirectCodeTimeOut, TimeUnit.MINUTES);
     }
 
     /**

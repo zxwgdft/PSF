@@ -16,7 +16,6 @@ ribbon:
   ConnectTimeout: 6000
 
 paladin:
-  redis-enabled: true
   shiro:
     tokenField: token
     redisEnabled: true

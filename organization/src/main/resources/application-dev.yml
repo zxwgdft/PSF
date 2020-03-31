@@ -25,17 +25,16 @@ spring:
       minimum-idle: 15
       maximum-pool-size: 15
   redis:
-    database: 0
     host: 172.16.16.120
-    jedis:
+    lettuce:
       pool:
         max-active: 8
         max-idle: 8
-        max-wait: -1
+        max-wait: 5000
         min-idle: 0
     password: ''
     port: 6379
-    timeout: 500
+    timeout: 1000
   rabbitmq:
     host: 172.16.16.120
     port: 5672

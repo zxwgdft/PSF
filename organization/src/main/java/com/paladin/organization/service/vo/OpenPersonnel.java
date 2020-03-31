@@ -1,7 +1,5 @@
 package com.paladin.organization.service.vo;
 
-import com.paladin.organization.model.constant.IdentificationType;
-import com.paladin.organization.model.constant.Sex;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,7 +18,7 @@ public class OpenPersonnel {
     private String id;
 
     @ApiModelProperty(value = "身份证件种类")
-    private IdentificationType identificationType;
+    private Integer identificationType;
 
     @ApiModelProperty(value = "身份证件号码")
     private String identificationNo;
@@ -32,7 +30,7 @@ public class OpenPersonnel {
     private String usedName;
 
     @ApiModelProperty(value = "性别")
-    private Sex sex;
+    private Integer sex;
 
     @ApiModelProperty(value = "手机号码")
     private String cellphone;

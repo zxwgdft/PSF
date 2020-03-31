@@ -18,7 +18,7 @@ public class OrgUserSessionFactory implements UserSessionFactory {
     @Override
     public UserSession createUserSession(String subject) {
         if (authenticationManager.isAppClient(subject)) {
-            return new AppClientSession(subject, authenticationManager);
+            return new AppClientSession(authenticationManager.getAppClientIdFromSubject(subject), authenticationManager);
         } else {
             return new OrgUserSession(subject, authenticationManager);
         }
