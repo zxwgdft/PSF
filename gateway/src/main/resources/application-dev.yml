@@ -1,8 +1,3 @@
-#eureka:
-#  client:
-#    serviceUrl:
-#      defaultZone: http://localhost:8888/eureka/
-
 server:
   port: 8900
 
@@ -13,6 +8,17 @@ spring:
     gateway:
       locator:
         enabled: true
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins:
+              - "http://localhost:63342"
+            allowedMethods:
+              - GET
+              - POST
+            allowed-headers: "*"
+            allow-credentials: true
+            max-age: 3600
       routes:
         - predicates:
             - Path=/organization/authenticate/**
@@ -30,11 +36,3 @@ spring:
             - name: Auth
               args:
                 jwtBase64Key: deDFCOSOeuWNmkTqDLkeFRYe4Eunimz4cescnhGA3J8=
-        - predicates:
-            - Path=/supervise/**
-          uri: lb://service-supervise
-          filters:
-            - name: Auth
-              args:
-                jwtBase64Key: deDFCOSOeuWNmkTqDLkeFRYe4Eunimz4cescnhGA3J8=
-

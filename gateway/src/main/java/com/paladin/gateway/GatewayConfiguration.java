@@ -1,18 +1,16 @@
 package com.paladin.gateway;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.cloud.gateway.config.GlobalCorsProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.server.reactive.ServerHttpRequest;
-import org.springframework.http.server.reactive.ServerHttpResponse;
-import org.springframework.web.cors.reactive.CorsUtils;
-import org.springframework.web.server.ServerWebExchange;
-import org.springframework.web.server.WebFilter;
-import org.springframework.web.server.WebFilterChain;
-import reactor.core.publisher.Mono;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.reactive.CorsWebFilter;
+import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
+import org.springframework.web.util.pattern.PathPatternParser;
+
+import java.util.Map;
 
 /**
  * @author TontoZhou
@@ -20,28 +18,24 @@ import reactor.core.publisher.Mono;
  */
 @Slf4j
 @Configuration
+@EnableConfigurationProperties(GlobalCorsProperties.class)
 public class GatewayConfiguration {
 
     @Bean
-    public WebFilter corsFilter() {
-        return (ServerWebExchange ctx, WebFilterChain chain) -> {
-            ServerHttpRequest request = ctx.getRequest();
-            if (CorsUtils.isCorsRequest(request)) {
-                ServerHttpResponse response = ctx.getResponse();
-                HttpHeaders headers = response.getHeaders();
-                headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*");
-                headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "*");
-                headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, "*");
-                headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, "true");
-                //headers.add(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, "*");
-                headers.add(HttpHeaders.ACCESS_CONTROL_MAX_AGE, "1800L");
-                if (request.getMethod() == HttpMethod.OPTIONS) {
-                    response.setStatusCode(HttpStatus.OK);
-                    return Mono.empty();
-                }
-            }
-            return chain.filter(ctx);
-        };
+    public CorsWebFilter corsFilter(GlobalCorsProperties globalCorsProperties) {
+        Map<String, CorsConfiguration> corsConfigMap = globalCorsProperties.getCorsConfigurations();
+        if (corsConfigMap.size() == 0) {
+            CorsConfiguration config = new CorsConfiguration();
+            config.addAllowedOrigin("*");
+            config.addAllowedHeader("*");
+            config.addAllowedMethod("*");
+            corsConfigMap.put("/**", config);
+        }
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource(new PathPatternParser());
+        for (Map.Entry<String, CorsConfiguration> entry : corsConfigMap.entrySet()) {
+            source.registerCorsConfiguration(entry.getKey(), entry.getValue());
+        }
+        return new CorsWebFilter(source);
     }
 
 }
