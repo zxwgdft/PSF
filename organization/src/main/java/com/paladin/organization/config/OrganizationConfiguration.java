@@ -1,4 +1,4 @@
-package com.paladin.organization.configuration;
+package com.paladin.organization.config;
 
 import com.paladin.framework.jwt.SHATokenProvider;
 import com.paladin.framework.jwt.TokenProvider;

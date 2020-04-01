@@ -1,4 +1,4 @@
-package com.paladin.organization.configuration;
+package com.paladin.organization.config;
 
 import com.paladin.framework.spring.DevCondition;
 import com.paladin.framework.swagger.CommonDocketFactory;

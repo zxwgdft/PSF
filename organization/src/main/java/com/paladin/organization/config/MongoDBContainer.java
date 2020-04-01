@@ -1,4 +1,4 @@
-package com.paladin.organization.configuration;
+package com.paladin.organization.config;
 
 import com.paladin.framework.spring.SpringContainer;
 import lombok.extern.slf4j.Slf4j;

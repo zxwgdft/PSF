@@ -1,7 +1,7 @@
 package com.paladin.organization.service;
 
 import com.paladin.framework.exception.BusinessException;
-import com.paladin.organization.configuration.MongoCollection;
+import com.paladin.organization.config.MongoCollection;
 import com.paladin.organization.model.AppResource;
 import com.paladin.organization.model.AppResourceModel;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.paladin.organization.configuration;
+package com.paladin.organization.config;
 
 /**
  * @author TontoZhou

@@ -1,4 +1,4 @@
-package com.paladin.organization.configuration;
+package com.paladin.organization.config;
 
 import com.paladin.framework.service.UserSessionThreadManager;
 import com.paladin.framework.web.convert.DateFormatter;
