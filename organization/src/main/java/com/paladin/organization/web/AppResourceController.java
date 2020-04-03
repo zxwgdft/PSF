@@ -41,8 +41,7 @@ public class AppResourceController {
         if (bindingResult.hasErrors()) {
             return R.fail(HttpCode.BAD_REQUEST, "请求参数异常", bindingResult.getAllErrors());
         }
-        appResourceService.createResource(resourceSave);
-        return R.success();
+        return R.success(appResourceService.createResource(resourceSave));
     }
 
     @ApiOperation(value = "更新一个应用资源")
@@ -67,10 +66,9 @@ public class AppResourceController {
     }
 
     @ApiOperation(value = "新增一个应用资源模型")
-    @PostMapping("/save")
+    @PostMapping("/model/save")
     public R saveAppResourceModel(@RequestBody AppResourceModelSave modelSave) {
-        appResourceService.createResourceModel(modelSave);
-        return R.success();
+        return R.success(appResourceService.createResourceModel(modelSave));
     }
 
 

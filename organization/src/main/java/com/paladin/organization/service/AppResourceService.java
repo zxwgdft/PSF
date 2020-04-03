@@ -2,6 +2,7 @@ package com.paladin.organization.service;
 
 import com.mongodb.client.result.UpdateResult;
 import com.paladin.framework.exception.BusinessException;
+import com.paladin.framework.utils.StringUtil;
 import com.paladin.framework.utils.convert.SimpleBeanCopyUtil;
 import com.paladin.organization.model.App;
 import com.paladin.organization.model.AppResource;
@@ -44,7 +45,7 @@ public class AppResourceService {
         AppResource appResource = SimpleBeanCopyUtil.simpleCopy(resourceSave, new AppResource());
 
         String appId = appResource.getAppId();
-        Integer modelId = appResource.getModelId();
+        String modelId = appResource.getModelId();
 
         App app = appService.get(appId);
         if (app == null) {
@@ -54,8 +55,8 @@ public class AppResourceService {
         Map<String, Object> effectiveProperties = checkEffectiveProperties(resourceSave.getProperties(), modelId);
         appResource.setProperties(effectiveProperties);
 
-        Integer parentId = appResource.getParent();
-        if (parentId != null) {
+        String parentId = appResource.getParent();
+        if (StringUtil.isNotEmpty(parentId)) {
             AppResource parent = mongoTemplate.findById(parentId, AppResource.class, MongoCollection.APP_RESOURCE);
             if (parent == null) {
                 throw new BusinessException("无法创建应用资源，因为找不到上级资源[ID:" + parentId + "]");
@@ -72,7 +73,7 @@ public class AppResourceService {
      * @param modelId
      * @return
      */
-    public Map<String, Object> checkEffectiveProperties(Map<String, Object> properties, Integer modelId) {
+    public Map<String, Object> checkEffectiveProperties(Map<String, Object> properties, String modelId) {
         AppResourceModel model = mongoTemplate.findById(modelId, AppResourceModel.class, MongoCollection.APP_RESOURCE_MODEL);
         if (model == null) {
             throw new BusinessException("资源模型不存在");

@@ -20,9 +20,9 @@ import java.util.List;
 @ApiModel(description = "应用资源模型更新")
 public class AppResourceModelUpdate {
 
-    @NotNull(message = "ID不能为空")
+    @NotEmpty(message = "ID不能为空")
     @ApiModelProperty(value = "资源模型ID")
-    private Integer id;
+    private String id;
 
     @NotEmpty(message = "名称不能为空")
     @Length(max = 50, message = "名称长度不能大于50")

@@ -23,9 +23,8 @@ public class AppRole {
     public static final String FIELD_ID = "id";
     public static final String FIELD_APP_ID = "appId";
 
-    @Id
     @ApiModelProperty(value = "ID")
-    private Integer id;
+    private String id;
     @ApiModelProperty(value = "名称")
     private String name;
     @ApiModelProperty(value = "应用ID")

@@ -7,5 +7,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
  * @author TontoZhou
  * @since 2020/4/2
  */
-public interface AppResourceModelRepository extends MongoRepository<AppResourceModel, Integer> {
+public interface AppResourceModelRepository extends MongoRepository<AppResourceModel, String> {
 }

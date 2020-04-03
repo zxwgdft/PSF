@@ -23,7 +23,7 @@ public class AppResourceUpdate {
 
     @NotEmpty(message = "资源模型不能为空")
     @ApiModelProperty(value = "资源模型ID")
-    private Integer modelId;
+    private String modelId;
 
     @ApiModelProperty(value = "属性")
     private Map<String, Object> properties;

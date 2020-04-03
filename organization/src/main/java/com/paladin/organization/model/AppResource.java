@@ -25,18 +25,17 @@ public class AppResource {
     public static final String FIELD_PROPERTIES = "properties";
     public static final String FIELD_MODEL_ID = "modelId";
 
-    @Id
     @ApiModelProperty(value = "ID")
-    private Integer id;
+    private String id;
     @ApiModelProperty(value = "名称")
     private String name;
     @ApiModelProperty(value = "应用ID")
     private String appId;
     @ApiModelProperty(value = "模型ID")
-    private Integer modelId;
+    private String modelId;
 
     @ApiModelProperty(value = "上级资源")
-    private Integer parent;
+    private String parent;
 
     // path 可以用于查找某个节点下所有子节点，但是资源这里并不需要这个功能，所以暂时屏蔽该字段
 //    @ApiModelProperty(value = "资源路径")

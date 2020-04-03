@@ -7,5 +7,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
  * @author TontoZhou
  * @since 2020/4/2
  */
-public interface AppRoleModelRepository extends MongoRepository<AppRoleModel, Integer> {
+public interface AppRoleModelRepository extends MongoRepository<AppRoleModel, String> {
 }
