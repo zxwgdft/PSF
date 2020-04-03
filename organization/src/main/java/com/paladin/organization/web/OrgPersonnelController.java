@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author TontoZhou
  * @since 2019/11/1
  */
-@Api("人员信息操作")
+@Api("人员管理")
 @RestController
 @RequestMapping("/organization/personnel")
 public class OrgPersonnelController {

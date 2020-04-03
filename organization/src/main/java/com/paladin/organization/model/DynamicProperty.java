@@ -22,5 +22,9 @@ public class DynamicProperty {
     private String code;
     @ApiModelProperty(value = "属性名称")
     private String name;
+    @ApiModelProperty(value = "是否可为空")
+    private boolean nullable = true;
+    @ApiModelProperty(value = "默认值")
+    private String defaultValue;
 
 }

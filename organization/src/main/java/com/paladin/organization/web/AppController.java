@@ -15,7 +15,7 @@ import java.util.List;
  * @author TontoZhou
  * @since 2019/11/1
  */
-@Api("人员信息操作")
+@Api("应用管理")
 @RestController
 @RequestMapping("/organization/app")
 public class AppController {

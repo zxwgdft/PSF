@@ -11,7 +11,7 @@ import tk.mybatis.spring.annotation.MapperScan;
  * @since 2019/10/30
  */
 @ComponentScan({"com.paladin.framework", "com.paladin.organization"})
-@MapperScan(basePackages = "com.paladin.organization.dao")
+@MapperScan(basePackages = "com.paladin.organization.dao.mapper")
 @SpringBootApplication
 @EnableDiscoveryClient
 public class OrgApplication {

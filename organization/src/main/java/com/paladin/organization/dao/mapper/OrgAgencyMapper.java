@@ -1,4 +1,4 @@
-package com.paladin.organization.dao;
+package com.paladin.organization.dao.mapper;
 
 import com.paladin.framework.mybatis.CustomMapper;
 import com.paladin.organization.model.OrgAgency;

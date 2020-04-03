@@ -4,6 +4,9 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import javax.persistence.Id;
 
 /**
  * @author TontoZhou
@@ -11,14 +14,16 @@ import lombok.Setter;
  */
 @Setter
 @Getter
-@ApiModel(description = "应用资源实体类")
+@ApiModel(description = "应用资源模型")
+@Document("APP_RESOURCE_MODEL")
 public class AppResourceModel extends DynamicModel {
 
     public static final String FIELD_APP_ID = "appId";
     public static final String FIELD_ID = "id";
 
+    @Id
     @ApiModelProperty(value = "ID")
-    private String id;
+    private Integer id;
     @ApiModelProperty(value = "应用ID")
     private String appId;
 

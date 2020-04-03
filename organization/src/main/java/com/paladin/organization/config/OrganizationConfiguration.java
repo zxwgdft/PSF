@@ -8,6 +8,8 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.data.mongodb.MongoDbFactory;
+import org.springframework.data.mongodb.MongoTransactionManager;
 
 /**
  * @author TontoZhou
@@ -29,4 +31,8 @@ public class OrganizationConfiguration {
         return tokenProvider;
     }
 
+    @Bean
+    public MongoTransactionManager transactionManager(MongoDbFactory factory){
+        return new MongoTransactionManager(factory);
+    }
 }

@@ -2,15 +2,15 @@ package com.paladin.organization.web;
 
 import com.paladin.framework.common.R;
 import com.paladin.framework.utils.UUIDUtil;
-import com.paladin.organization.model.AppResource;
 import com.paladin.organization.model.AppResourceModel;
-import com.paladin.organization.model.DynamicProperty;
 import com.paladin.organization.service.AppResourceService;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,24 +68,26 @@ public class TestController {
     }
 
 
-    @PostMapping("/do")
+    @GetMapping("/do")
     public R doo() {
 
 
-        AppResource resource = new AppResource();
-        resource.setAppId("0001");
-        resource.setModelId("5e1839112a24ca182ba1a6e0");
-        resource.setName("周期考评");
-        resource.setParent("5e1e815ea3a72b3a322dc7f9");
+//        AppResourceSave resource = new AppResourceSave();
+//        resource.setAppId("0001");
+//        resource.setModelId("5e1839112a24ca182ba1a6e0");
+//        resource.setName("周期考评");
+//        resource.setParent("5e1e815ea3a72b3a322dc7f9");
+//
+//        Map<String, Object> properties = new HashMap<>();
+//        properties.put("url","/hf/grkpgl/zqkp");
+//        properties.put("code","GRKPGL:zqkp");
+//
+//
+//        resource.setProperties(properties);
+//
+//        appResourceService.createResource(resource);
 
-        Map<String, Object> properties = new HashMap<>();
-        properties.put("url","/hf/grkpgl/zqkp");
-        properties.put("code","GRKPGL:zqkp");
-
-
-        resource.setProperties(properties);
-
-        appResourceService.createResource(resource);
+        appResourceService.updateResourceParent("", "");
 
         return R.success();
     }
