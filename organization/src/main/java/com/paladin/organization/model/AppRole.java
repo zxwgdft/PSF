@@ -22,6 +22,11 @@ public class AppRole {
 
     public static final String FIELD_ID = "id";
     public static final String FIELD_APP_ID = "appId";
+    public static final String FIELD_PROPERTIES = "properties";
+    public static final String FIELD_MODEL_ID = "modelId";
+    public static final String FIELD_RESOURCE_IDS = "resourceIds";
+
+
 
     @ApiModelProperty(value = "ID")
     private String id;
