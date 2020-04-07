@@ -18,7 +18,6 @@
     <li><b>Eureka：</b>服务发现与注册中心，已被Alibaba Nacos取代</li>
     <li><b>Gateway：</b>网关，进行地址转发和过滤，网关与Organization应用共同完成统一认证功能，存在与Organization耦合</li>
     <li><b>Organization：</b>主要业务应用，完成人员管理、组织管理、权限管理、应用管理4个大业务模块</li>
-    <li><b>Supervise：</b>作为服务消费应用的示例应用，主要用于测试功能。（原型想参考行风监管系统）</li>
     <li><b>Web：</b>空，日后可能作为前端使用</li>   
 </ul>
 
