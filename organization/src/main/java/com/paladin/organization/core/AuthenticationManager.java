@@ -9,7 +9,7 @@ import com.paladin.organization.model.SysUser;
 import com.paladin.organization.model.constant.AppConstant;
 import com.paladin.organization.service.AppRedirectService;
 import com.paladin.organization.service.AppService;
-import com.paladin.organization.service.OrgPersonnelService;
+import com.paladin.organization.service.PersonnelService;
 import com.paladin.organization.service.SysUserService;
 import com.paladin.organization.service.dto.LoginApp;
 import com.paladin.organization.service.dto.LoginUser;
@@ -51,7 +51,7 @@ public class AuthenticationManager implements OrgUserSessionLoader, AppClientSes
     @Autowired
     private AppRedirectService appRedirectService;
     @Autowired
-    private OrgPersonnelService orgPersonnelService;
+    private PersonnelService personnelService;
 
 
     /**
@@ -197,7 +197,7 @@ public class AuthenticationManager implements OrgUserSessionLoader, AppClientSes
     @Override
     public void loadPersonnel(OrgUserSession userSession) {
         if (StringUtil.isNotEmpty(userSession.personnelId)) {
-            userSession.personnel = orgPersonnelService.get(userSession.personnelId);
+            userSession.personnel = personnelService.get(userSession.personnelId);
             if (userSession.personnel == null) {
                 throw new BusinessException("登录用户对应人员信息已经不存在");
             }

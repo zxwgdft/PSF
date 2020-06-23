@@ -15,7 +15,7 @@ import javax.persistence.Id;
 @Setter
 @Getter
 @ApiModel(description = "机构")
-public class OrgAgency extends BaseModel {
+public class Agency extends BaseModel {
 
     @Id
     @ApiModelProperty(value = "机构代码")

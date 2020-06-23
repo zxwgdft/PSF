@@ -2,8 +2,8 @@ package com.paladin.organization.web;
 
 import com.paladin.framework.service.OffsetPage;
 import com.paladin.framework.service.PageResult;
-import com.paladin.organization.model.OrgPersonnel;
-import com.paladin.organization.service.OrgPersonnelService;
+import com.paladin.organization.model.Personnel;
+import com.paladin.organization.service.PersonnelService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,22 +19,22 @@ import org.springframework.web.bind.annotation.RestController;
 @Api("人员管理")
 @RestController
 @RequestMapping("/organization/personnel")
-public class OrgPersonnelController {
+public class PersonnelController {
 
     @Autowired
-    private OrgPersonnelService orgPersonnelService;
+    private PersonnelService personnelService;
 
     @ApiOperation(value = "获取某个人员信息")
     @GetMapping("/get")
-    public OrgPersonnel getPersonnel(@RequestParam() String userId) {
-        return orgPersonnelService.get(userId);
+    public Personnel getPersonnel(@RequestParam() String userId) {
+        return personnelService.get(userId);
     }
 
 
     @ApiOperation(value = "获取人员信息列表-分页")
     @GetMapping("/find")
-    public PageResult<OrgPersonnel> findPersonnel(OffsetPage param) {
-        return orgPersonnelService.searchPage(param);
+    public PageResult<Personnel> findPersonnel(OffsetPage param) {
+        return personnelService.searchPage(param);
     }
 
 

@@ -16,7 +16,7 @@ import java.util.Date;
 @Setter
 @Getter
 @ApiModel(description = "人员")
-public class OrgPersonnel extends BaseModel {
+public class Personnel extends BaseModel {
 
     @Id
     @ApiModelProperty(value = "ID")
@@ -48,7 +48,7 @@ public class OrgPersonnel extends BaseModel {
 
     @ApiModelProperty(value = "机构ID")
     private String agencyId;
-    
+
     @ApiModelProperty(value = "国籍")
     private Integer nationality;
 

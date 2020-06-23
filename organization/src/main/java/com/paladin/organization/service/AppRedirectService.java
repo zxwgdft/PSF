@@ -31,7 +31,7 @@ public class AppRedirectService {
     @Autowired
     private AppService appService;
     @Autowired
-    private OrgPersonnelService personnelService;
+    private PersonnelService personnelService;
 
     @Autowired
     @Qualifier("jsonRedisTemplate")

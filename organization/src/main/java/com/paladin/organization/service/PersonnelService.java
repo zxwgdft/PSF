@@ -1,8 +1,7 @@
 package com.paladin.organization.service;
 
 import com.paladin.framework.service.WebServiceSupport;
-import com.paladin.organization.model.OrgAgency;
-import com.paladin.organization.model.OrgPersonnel;
+import com.paladin.organization.model.Personnel;
 import org.springframework.stereotype.Service;
 
 /**
@@ -10,7 +9,7 @@ import org.springframework.stereotype.Service;
  * @since 2019/12/12
  */
 @Service
-public class OrgAgencyService extends WebServiceSupport<OrgAgency> {
+public class PersonnelService extends WebServiceSupport<Personnel> {
 
 
 }

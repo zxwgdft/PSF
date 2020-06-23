@@ -1,7 +1,7 @@
 package com.paladin.organization.core;
 
 import com.paladin.framework.service.UserSession;
-import com.paladin.organization.model.OrgPersonnel;
+import com.paladin.organization.model.Personnel;
 
 /**
  * @author TontoZhou
@@ -66,9 +66,9 @@ public class OrgUserSession extends UserSession {
     }
 
 
-    protected OrgPersonnel personnel;
+    protected Personnel personnel;
 
-    public OrgPersonnel getPersonnel() {
+    public Personnel getPersonnel() {
         lazyLoad();
         lazyLoadPersonnel();
         return personnel;
