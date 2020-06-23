@@ -119,7 +119,7 @@ public class AppRedirectService {
     private String createRedirectUrl(App app, String personnelId) {
         String url = app.getRedirectUrl();
         // 确认码用于APP确认是否有该用户跳转登录，防止未经服务器的跳转登录
-        String redirectCode = UUIDUtil.createUUID();
+        String redirectCode = UUIDUtil.createBase64UUID();
 
         AppRedirect appRedirect = new AppRedirect();
         appRedirect.setAppId(app.getAppId());

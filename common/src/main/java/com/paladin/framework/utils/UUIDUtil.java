@@ -13,7 +13,7 @@ public class UUIDUtil {
      *
      * @return
      */
-    public static String create32UUID() {
+    public static String createUUID() {
         byte[] randomBytes = new byte[16];
         numberGenerator.nextBytes(randomBytes);
         randomBytes[6] &= 0x0f; /* clear version */
@@ -44,7 +44,7 @@ public class UUIDUtil {
      *
      * @return
      */
-    public static String createUUID() {
+    public static String createBase64UUID() {
         byte[] randomBytes = new byte[16];
         numberGenerator.nextBytes(randomBytes);
         return Base64.encodeBase64URLSafeString(randomBytes);

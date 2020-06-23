@@ -1,6 +1,7 @@
 package com.paladin.gateway;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.gateway.config.GlobalCorsProperties;
 import org.springframework.context.annotation.Bean;
@@ -21,7 +22,9 @@ import java.util.Map;
 @EnableConfigurationProperties(GlobalCorsProperties.class)
 public class GatewayConfiguration {
 
+    //TODO 可以通过nginx解决跨域问题
     @Bean
+    @ConditionalOnProperty(prefix = "paladin", value = "cors-enabled", havingValue = "true", matchIfMissing = false)
     public CorsWebFilter corsFilter(GlobalCorsProperties globalCorsProperties) {
         Map<String, CorsConfiguration> corsConfigMap = globalCorsProperties.getCorsConfigurations();
         if (corsConfigMap.size() == 0) {

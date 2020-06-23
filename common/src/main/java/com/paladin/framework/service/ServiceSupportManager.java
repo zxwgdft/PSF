@@ -5,7 +5,6 @@ import com.paladin.framework.spring.SpringBeanHelper;
 import com.paladin.framework.spring.SpringContainer;
 import com.paladin.framework.utils.reflect.ReflectUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,9 +15,8 @@ import java.util.Map.Entry;
  *
  * @author TontoZhou
  */
-@Component
 @Slf4j
-public class ServiceSupportConatiner implements SpringContainer {
+public class ServiceSupportManager implements SpringContainer {
 
     @SuppressWarnings({"rawtypes", "unchecked"})
     @Override
@@ -64,11 +62,11 @@ public class ServiceSupportConatiner implements SpringContainer {
                 continue;
             } else {
                 support.setSqlMapper(mapper);
-                log.info("===>为[" + support.getClass().getName() + "]注入CustomMapper");
+                log.debug("===>为[" + support.getClass().getName() + "]注入CustomMapper");
             }
 
             support.init();
-            log.info("<===[" + support.getClass().getName() + "]初始化成功");
+            log.debug("<===[" + support.getClass().getName() + "]初始化成功");
         }
 
         return true;

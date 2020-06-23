@@ -90,7 +90,7 @@ public class AuthenticationManager implements OrgUserSessionLoader, AppClientSes
 
                 // TODO 增加手机登录（手机账号或手机验证码登录）
 
-                if (SecureUtil.hashByMD5(password, sysUser.getSalt(), 1).equals(sysUser.getPassword())) {
+                if (SecureUtil.hashByMD5(password, sysUser.getSalt()).equals(sysUser.getPassword())) {
                     return sysUser;
                 } else {
                     throw new BusinessException("密码错误");

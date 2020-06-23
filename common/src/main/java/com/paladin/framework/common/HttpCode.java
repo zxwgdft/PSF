@@ -1,6 +1,3 @@
-
-
-
 package com.paladin.framework.common;
 
 import io.swagger.annotations.ApiModel;
@@ -135,7 +132,6 @@ public enum HttpCode implements IResultCode {
     NOT_EXTENDED(510, "Not Extended"),
 
     NETWORK_AUTHENTICATION_REQUIRED(511, "Network Authentication Required");
-
 
 
     final int code;

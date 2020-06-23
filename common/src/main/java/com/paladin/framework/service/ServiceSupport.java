@@ -26,7 +26,7 @@ import java.util.*;
 /**
  * <h2>业务支持类</h2>
  * 提供一些简单业务方法
- * 通过{@link ServiceSupportConatiner}自动注册sqlMapper
+ * 通过{@link ServiceSupportManager}自动注册sqlMapper
  * 简单模式下会忽略通用筛查、排序条件
  *
  * @param <Model> 实体类
@@ -128,7 +128,7 @@ public abstract class ServiceSupport<Model> {
 
         // 如果是逻辑删除模型，则所有查询中需要过滤删除数据
         if (isBaseModel) {
-            commonConditionList.add(new Condition(BaseModel.FIELD_DELETED, QueryType.EQUAL, false));
+            commonConditionList.add(new Condition(BaseModel.FIELD_DELETED, QueryType.EQUAL, BaseModel.BOOLEAN_NO));
         }
 
         this.commonConditions = commonConditionList.toArray(new Condition[commonConditionList.size()]);
@@ -927,28 +927,14 @@ public abstract class ServiceSupport<Model> {
      *
      * @param model 实体类
      */
-    public void updateModelWrap(Model model) {
-        if (isBaseModel) {
-            Date now = new Date();
-            BaseModel baseModel = (BaseModel) model;
-            baseModel.setUpdateTime(now);
-        }
-    }
+    public abstract void updateModelWrap(Model model);
 
     /**
      * 保存操作前需要对数据包裹，例如设置创建操作人与操作时间
      *
      * @param model 实体类
      */
-    public void saveModelWrap(Model model) {
-        if (isBaseModel) {
-            Date now = new Date();
-            BaseModel baseModel = (BaseModel) model;
-            baseModel.setCreateTime(now);
-            baseModel.setUpdateTime(now);
-            baseModel.setDeleted(false);
-        }
-    }
+    public abstract void saveModelWrap(Model model);
 
 
     // -----------------------------------------------------

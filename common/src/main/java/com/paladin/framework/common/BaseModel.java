@@ -1,9 +1,7 @@
 package com.paladin.framework.common;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
@@ -13,7 +11,8 @@ import java.util.Date;
 @Setter
 public abstract class BaseModel implements Serializable {
 
-
+    public static final int BOOLEAN_YES = 1;
+    public static final int BOOLEAN_NO = 0;
 
     public static final String FIELD_DELETED = "deleted";
     public static final String FIELD_CREATE_TIME = "createTime";

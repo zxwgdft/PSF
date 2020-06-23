@@ -61,11 +61,10 @@ public class WebFluxUtil {
      */
     public static Mono<Void> writeResponseByJson(ServerWebExchange serverWebExchange, HttpStatus status, Object data) {
         try {
-            byte[] bystes = data == null ? new byte[0] : JsonUtil.getJson(data).getBytes();
-            return writeResponse(serverWebExchange, status, bystes);
+            byte[] bytes = data == null ? new byte[0] : JsonUtil.getJson(data).getBytes();
+            return writeResponse(serverWebExchange, status, bytes);
         } catch (IOException e) {
-            e.printStackTrace();
-            throw new SystemException(SystemExceptionCode.CODE_ERROR_CODE, "[" + (data == null ? "null" : data.getClass()) + "]无法转化为json格式");
+            throw new SystemException(SystemExceptionCode.CODE_ERROR_CODE, "[" + (data == null ? "null" : data.getClass()) + "]无法转化为json格式", e);
         }
     }
 

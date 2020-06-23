@@ -36,3 +36,7 @@ spring:
             - name: Auth
               args:
                 jwtBase64Key: deDFCOSOeuWNmkTqDLkeFRYe4Eunimz4cescnhGA3J8=
+
+
+paladin:
+  cors-enabled: true

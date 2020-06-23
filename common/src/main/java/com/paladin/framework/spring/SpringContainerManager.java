@@ -1,19 +1,18 @@
 package com.paladin.framework.spring;
 
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author TontoZhou
  */
 @Slf4j
-@Component
 public class SpringContainerManager implements ApplicationListener<ContextRefreshedEvent> {
 
     private boolean initialized = false;
@@ -31,24 +30,21 @@ public class SpringContainerManager implements ApplicationListener<ContextRefres
             // 排序
             Collections.sort(containers, (SpringContainer o1, SpringContainer o2) -> o1.order() - o2.order());
 
+            log.info("===>开始初始化SpringContainer");
+
             for (SpringContainer container : containers) {
-                log.info("===>container[" + container.getClass() + "] begin to initialize<===");
                 if (container.initialize()) {
-                    log.info("===>container[" + container.getClass() + "] initialized successfully<===");
+                    log.debug("<===[" + container.getClass() + "]初始化成功");
                 } else {
-                    log.warn("===>container[" + container.getClass() + "] initialized failed<===");
+                    log.warn("<===[" + container.getClass() + "]初始化失败");
                 }
             }
 
             for (SpringContainer container : containers) {
-                log.info("===>container[" + container.getClass()
-                        + "] begin to start after initialized successfully<===");
-
                 if (container.afterInitialize()) {
-                    log.info(
-                            "===>container[" + container.getClass() + "] started after initialized successfully<===");
+                    log.debug("<===[" + container.getClass() + "]启动后初始化成功");
                 } else {
-                    log.warn("===>container[" + container.getClass() + "] started after initialized failed<===");
+                    log.warn("<===[" + container.getClass() + "]启动后初始化失败");
                 }
             }
 
